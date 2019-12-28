@@ -3,7 +3,7 @@ package homework2;
 import java.util.*;
 
 /**
- * This class implements a testing driver for BipartiteGraph. The driver
+ * This class implements a testing driver for homework2.BipartiteGraph. The driver
  * manages BipartiteGraphs whose nodes and edges are Strings.
  */
 public class BipartiteGraphTestDriver {

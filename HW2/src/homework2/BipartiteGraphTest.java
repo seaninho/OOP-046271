@@ -5,7 +5,7 @@ import org.junit.Test;
 
 
 /**
- * BipartiteGraphTest contains JUnit block-box unit tests for BipartiteGraph.
+ * BipartiteGraphTest contains JUnit block-box unit tests for homework2.BipartiteGraph.
  */
 public class BipartiteGraphTest {
 
