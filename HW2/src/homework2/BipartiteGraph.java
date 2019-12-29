@@ -14,12 +14,12 @@ import java.util.*;
  * 2. Nodes cannot be connected to a same color node, meaning a BLACK colored
  *    node can only be connected to a WHITE color node.
  */
-public class BipartiteGraph<L, D> {
+public class BipartiteGraph<L> {
     // Abstraction function:
 
     // Representation Invariant:
 
-    private Map<L, Node<L, D>> nodes;
+    private Map<L, Node<L, ?>> nodes;
 
     /**
      * Bipartite Graph constructor.
@@ -34,48 +34,37 @@ public class BipartiteGraph<L, D> {
 
 
     /**
-     * @requires nodeLabel != null
-     * @modifies graph
-     * @effects Adds a black or white node represented by nodeName label
-     * to the graph.
+     * Add a black node to graph.
+     *
+     * @modifies graph named graphName
+     * @effects Adds a black node represented by the String nodeName to the
+     * 			graph named graphName.
      */
-    public void addNode(Object nodeLabel, D data, NodeColor type) {
-        // TODO: Implement this method
-        checkRep();
-        if (nodeLabel == null) {
-            throw new BadGraphHandleException("Cannot add a node with " +
-                    "null nodeName");
-        }
-        Node<L, D> newNode = new Node<L, D>(data, type);
-        nodes.put((L)nodeLabel, newNode);
+    public void addBlackNode(L nodeName) {
+
     }
 
     /**
-     * @requires ((addBlackNode(parentLabel) && addWhiteNode(childLabel))
-     *              || (addWhiteNode(parentLabel) && addBlackNode(childLabel)))
-     *           && edgeLabel != null
-     *           && node named parentLabel has no other outgoing edge labeled
-     * 				edgeLabel
-     *           && node named childLabel has no other incoming edge labeled
-     * 				edgeLabel
+     * Adds a white node to the graph.
+     *
+     * @modifies graph named graphName
+     * @effects Adds a white node represented by the String nodeName to the
+     * 			graph named graphName.
+     */
+    public void addWhiteNode(String graphName, String nodeName) {
+
+    }
+
+    /**
+     * Adds an edge to the graph.
+     *
      * @modifies graph named graphName
      * @effects Adds an edge from the node parentLabel to the node childLabel
      * 			in the graph. The new edge's label is the Object
      * 			edgeLabel.
      */
-    public void addEdge(L parentLabel, L childLabel,
-                        L edgeLabel) {
-        //TODO: Implement this method
+    public void addEdge(L parentLabel, L childLabel, L edgeLabel) {
 
-        if (edgeLabel == null || parentLabel == childLabel )  {
-
-        }
-        Node parentNode = nodes.get(parentLabel);
-        Node childNode = nodes.get(childLabel);
-        if (parentNode.getColor() == childNode.getColor()) {
-
-        }
-        if()
     }
 
     /**
@@ -83,9 +72,8 @@ public class BipartiteGraph<L, D> {
      * @return a space-separated list of the names of all the black nodes
      * 		   in the graph, in alphabetical order.
      */
-    public Object listBlackNodes() {
+    public L listBlackNodes() {
         //TODO: Implement this method
-
     }
 
     /**
@@ -93,9 +81,8 @@ public class BipartiteGraph<L, D> {
      * @return a space-separated list of the names of all the white nodes
      * 		   in the graph, in alphabetical order.
      */
-    public Object listWhiteNodes() {
+    public L listWhiteNodes() {
         //TODO: Implement this method
-
     }
 
     /**
@@ -103,7 +90,7 @@ public class BipartiteGraph<L, D> {
      * @return a space-separated list of the names of the children of
      * 		   parentName in the graph, in alphabetical order.
      */
-    public Object listChildren(Object parentName) {
+    public L listChildren(L parentName) {
         //TODO: Implement this method
     }
 
@@ -112,7 +99,7 @@ public class BipartiteGraph<L, D> {
      * @return a space-separated list of the names of the parents of
      * 		   childName in the graph, in alphabetical order.
      */
-    public Object listParents(Object childName) {
+    public L listParents(L childName) {
         //TODO: Implement this method
 
     }
@@ -124,7 +111,7 @@ public class BipartiteGraph<L, D> {
      * @return the name of the child of parentName that is connected by the
      * 		   edge labeled edgeLabel, in the graph graphName.
      */
-    public Object getChildByEdgeLabel(Object parentName, Object edgeLabel) {
+    public L getChildByEdgeLabel(Object parentName, Object edgeLabel) {
         //TODO: Implement this method
 
 
@@ -143,19 +130,28 @@ public class BipartiteGraph<L, D> {
 
     }
 
-    /*--------------------------------ADD FUNCTIONS----------------------------------*/
-
     /**
      *
      */
-    public boolean isConnected(Object srcNode, Object dstNode) {
+    private boolean isConnected(Object srcNode, Object dstNode) {
 
     }
 
     /**
      * @return list of all the nodes between srcNode and dstNode.
      */
-    public List<Object> getPath(Object srcNode, Object dstNode) {
+    private List<Object> getPath(Object srcNode, Object dstNode) {
+
+    }
+
+    /**
+     * Adds a node to the graph.
+     *
+     * @modifies graph named graphName
+     * @effects Adds a white node represented by the String nodeName to the
+     * 			graph named graphName.
+     */
+    private void addNode(String graphName, String nodeName) {
 
     }
 
