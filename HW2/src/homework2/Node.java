@@ -12,20 +12,25 @@ enum NodeColor {
 
 /**
  * This class implements a graph node.
+ * Each node has a label of type L.
+ * Each node is of type T.
  * Each node is either "BLACK" or "WHITE".
  */
-public class Node<L,D> {
+public class Node<L, T> {
     // Abstraction function:
-    // Node n contains data (of type D) and color (of type NodeColor).
+    // Node n contains nodeType (of type T), label of type L
+    // and color (of type NodeColor).
 
     // Representation Invariant for every Node n:
-    // For each node n, n.color == BLACK || n.color == WHITE
+    // For each node n, n.data != NULL, n.label != NULL
+    // and n.color == BLACK || n.color == WHITE
 
     private final NodeColor color;
-    private final D data;
+    private final NodeType<T> type;
+    private final L label;
 
-    private List<Node<L, D>> parentsList;
-    private List<Node<L, D>> childrenList;
+    private List<Node<L, T>> parentsList;
+    private List<Node<L, T>> childrenList;
     private Map<L, Edge<L>> inEdges;
     private Map<L, Edge<L>> outEdges;
 
@@ -36,16 +41,17 @@ public class Node<L,D> {
      * @effects Instantiates a new node.
      * @throws NullPointerException when invoked with null parameters
      */
-    public Node(D data, NodeColor color) throws NullPointerException {
-        if (data == null || color == null) {
+    public Node(NodeColor color, NodeType<T> type, L label) throws NullPointerException {
+        if (color == null || type == null || label == null) {
             throw new NullPointerException();
         }
-        parentsList = new ArrayList<Node<L, D>>();
-        childrenList = new ArrayList<Node<L, D>>();
+        parentsList = new ArrayList<Node<L, T>>();
+        childrenList = new ArrayList<Node<L, T>>();
         inEdges = new HashMap<L, Edge<L>>();
         outEdges = new HashMap<L, Edge<L>>();
         this.color = color;
-        this.data = data;
+        this.type = NodeType<T>;
+        this.label = label;
         checkRep();
     }
 
@@ -73,8 +79,7 @@ public class Node<L,D> {
      * @return copy of outgoing edges map.
      */
     public HashMap<L, Edge<L>> getOutgoingEdges() {
-        HashMap<L, Edge<L>>copyOfOutEdges = new HashMap<L, Edge<L>>(outEdges);
-        return copyOfOutEdges;
+        return new HashMap<L, Edge<L>>(outEdges);
     }
 
     /**
@@ -83,8 +88,7 @@ public class Node<L,D> {
      * @return copy of ingoing edges map.
      */
     public HashMap<L, Edge<L>> getIncomingEdges() {
-        HashMap<L, Edge<L>>copyOfInEdges = new HashMap<L, Edge<L>>(inEdges);
-        return copyOfInEdges;
+        return new HashMap<L, Edge<L>>(inEdges);
     }
 
     /**
@@ -93,9 +97,7 @@ public class Node<L,D> {
      * @return copy of list of parents nodes.
      */
     public List<Node<L, D>> getNodesParents() {
-        ArrayList<Node<L, D>> copyOfParentsList =
-                new ArrayList<Node<L, D>>(parentsList);
-        return copyOfParentsList;
+        return new ArrayList<Node<L, D>>(parentsList);
     }
 
     /**
@@ -104,9 +106,7 @@ public class Node<L,D> {
      * @return copy of list of child nodes.
      */
     public List<Node<L, D>> getNodesChildren() {
-        ArrayList<Node<L, D>> copyOfChildrenList =
-                new ArrayList<Node<L, D>>(childrenList);
-        return copyOfChildrenList;
+        return new ArrayList<Node<L, D>>(childrenList);
     }
 
     /**
@@ -115,6 +115,10 @@ public class Node<L,D> {
      * @effects Checks the Representation Invariant is kept
      */
     private void checkRep() {
+        assert (this.label != null) :
+                "Node label cannot be null";
+        assert (this.data != null) :
+                "Node data cannot be null";
         assert (this.color == NodeColor.BLACK || this.color == NodeColor.WHITE) :
                 "Nodes color is illegal";
 
