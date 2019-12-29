@@ -61,7 +61,8 @@ public class BipartiteGraphTestDriver {
      */
     public void addWhiteNode(String graphName, String nodeName) {
     	//TODO: Implement this method
-        graphs.get(graphName).addWhiteNode(nodeName, nodeName);
+        NodeType nodeType = new NodeType(nodeName);
+        graphs.get(graphName).addWhiteNode(nodeName, nodeType);
     }
 
     
