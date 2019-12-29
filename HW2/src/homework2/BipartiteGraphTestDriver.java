@@ -51,7 +51,7 @@ public class BipartiteGraphTestDriver {
     }
 
     
-    /**
+    /**K
      * @requires createGraph(graphName)
      *           && nodeName != null
      *           && neither addBlackNode(graphName,nodeName) 
