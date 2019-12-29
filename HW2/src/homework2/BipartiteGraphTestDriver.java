@@ -45,7 +45,8 @@ public class BipartiteGraphTestDriver {
      */
     public void addBlackNode(String graphName, String nodeName) {
     	// TODO: Implement this method
-        graphs.get(graphName).addBlackNode(nodeName, nodeName);
+        NodeType<?> nodeType = new NodeType(nodeName);
+        graphs.get(graphName).addBlackNode(nodeName, nodeType);
     }
 
     
@@ -61,7 +62,7 @@ public class BipartiteGraphTestDriver {
      */
     public void addWhiteNode(String graphName, String nodeName) {
     	//TODO: Implement this method
-        NodeType nodeType = new NodeType(nodeName);
+        NodeType<?> nodeType = new NodeType(nodeName);
         graphs.get(graphName).addWhiteNode(nodeName, nodeType);
     }
 
