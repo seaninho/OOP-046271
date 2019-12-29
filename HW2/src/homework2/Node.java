@@ -24,10 +24,10 @@ public class Node<L,D> {
     private final NodeColor color;
     private final D data;
 
-    private List<Node<L, D>> parentsList = new ArrayList<Node<L, D>>();
-    private List<Node<L, D>> childrenList = new ArrayList<Node<L, D>>();
-    private Map<L, Edge<L>> inEdges = new HashMap<L, Edge<L>>();
-    private Map<L, Edge<L>> outEdges = new HashMap<L, Edge<L>>();
+    private List<Node<L, D>> parentsList;
+    private List<Node<L, D>> childrenList;
+    private Map<L, Edge<L>> inEdges;
+    private Map<L, Edge<L>> outEdges;
 
     /**
      * Node constructor.
@@ -40,6 +40,10 @@ public class Node<L,D> {
         if (data == null || color == null) {
             throw new NullPointerException();
         }
+        parentsList = new ArrayList<Node<L, D>>();
+        childrenList = new ArrayList<Node<L, D>>();
+        inEdges = new HashMap<L, Edge<L>>();
+        outEdges = new HashMap<L, Edge<L>>();
         this.color = color;
         this.data = data;
         checkRep();
@@ -48,7 +52,7 @@ public class Node<L,D> {
     /**
      * Gets node color.
      *
-     * @return the nodes color
+     * @return the nodes color.
      */
     public NodeColor getColor() {
         return this.color;

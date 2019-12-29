@@ -16,8 +16,7 @@ public class BipartiteGraphTestDriver {
      */
     public BipartiteGraphTestDriver () {
     	// TODO: Implement this constructor
-       
-       
+        graphs = new HashMap<String, BipartiteGraph<String>>();
     }
 
     
@@ -29,8 +28,8 @@ public class BipartiteGraphTestDriver {
      */
     public void createGraph(String graphName) {
         // TODO: Implement this method
-        
-    	
+        BipartiteGraph<String> newGraph = new BipartiteGraph<String>();
+        graphs.put(graphName, newGraph);
     }
 
     
@@ -46,8 +45,7 @@ public class BipartiteGraphTestDriver {
      */
     public void addBlackNode(String graphName, String nodeName) {
     	// TODO: Implement this method
-    	
-    	
+        graphs.get(graphName).addBlackNode(nodeName);
     }
 
     
@@ -63,8 +61,7 @@ public class BipartiteGraphTestDriver {
      */
     public void addWhiteNode(String graphName, String nodeName) {
     	//TODO: Implement this method
-    	
-    	
+        graphs.get(graphName).addWhiteNode(nodeName);
     }
 
     
@@ -86,8 +83,7 @@ public class BipartiteGraphTestDriver {
     					String parentName, String childName, 
                         String edgeLabel) {
     	//TODO: Implement this method
-    	
-    	
+        graphs.get(graphName).addEdge(parentName, childName, edgeLabel);
     }
 
     
@@ -98,8 +94,7 @@ public class BipartiteGraphTestDriver {
      */
     public String listBlackNodes(String graphName) {
     	//TODO: Implement this method
-    	
-    	
+        return graphs.get(graphName).listBlackNodes();
     }
 
     
@@ -110,8 +105,7 @@ public class BipartiteGraphTestDriver {
      */
     public String listWhiteNodes(String graphName) {
     	//TODO: Implement this method
-    	
-    	
+        return graphs.get(graphName).listWhiteNodes();
     }
 
     
@@ -122,8 +116,7 @@ public class BipartiteGraphTestDriver {
      */
     public String listChildren(String graphName, String parentName) {
     	//TODO: Implement this method
-    	
-    	
+        return graphs.get(graphName).listChildren();
     }
 
     
@@ -134,8 +127,7 @@ public class BipartiteGraphTestDriver {
      */
     public String listParents(String graphName, String childName) {
     	//TODO: Implement this method
-    	
-    	
+        return graphs.get(graphName).listParents();
     }
 
     
@@ -148,7 +140,7 @@ public class BipartiteGraphTestDriver {
     public String getChildByEdgeLabel(String graphName, String parentName,
     								   String edgeLabel) {
     	//TODO: Implement this method
-    	
+        return graphs.get(graphName).getChildByEdgeLabel(parentName, edgeLabel);
     	
     }
 
@@ -162,7 +154,6 @@ public class BipartiteGraphTestDriver {
     public String getParentByEdgeLabel(String graphName, String childName,
     									String edgeLabel) {
     	//TODO: Implement this method
-    	
-    	
+        return graphs.get(graphName).getParentByEdgeLabel(childName, edgeLabel);
     }
 }
