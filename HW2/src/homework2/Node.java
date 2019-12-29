@@ -11,17 +11,15 @@ enum NodeColor {
 }
 
 /**
- * This class implements NodesData, the data stored in a node in a bipartite
- * graph.
- * Each NodesData is either of type "BLACK" or type "WHITE".
+ * This class implements a graph node.
+ * Each node is either "BLACK" or "WHITE".
  */
 public class Node<L,D> {
     // Abstraction function:
-    // A Node n contains data (of type D) and color of type NodeColor.
+    // Node n contains data (of type D) and color (of type NodeColor).
 
     // Representation Invariant for every Node n:
-    // (n.color == BLACK || n.color == WHITE) &&
-    //
+    // For each node n, n.color == BLACK || n.color == WHITE
 
     private final NodeColor color;
     private final D data;
@@ -32,7 +30,8 @@ public class Node<L,D> {
     private Map<L, Edge<L>> outEdges = new HashMap<L, Edge<L>>();
 
     /**
-     * Constructs a new node
+     * Node constructor.
+     *
      * @modifies this
      * @effects Instantiates a new node.
      * @throws NullPointerException when invoked with null parameters
@@ -47,6 +46,8 @@ public class Node<L,D> {
     }
 
     /**
+     * Gets node color.
+     *
      * @return the nodes color
      */
     public NodeColor getColor() {
@@ -54,14 +55,18 @@ public class Node<L,D> {
     }
 
     /**
-     * @return the node data
+     * Gets node data.
+     *
+     * @return the node data.
      */
     public D getNodeData() {
         return this.data;
     }
 
     /**
-     * @return copy of the map of outgoing edges.
+     * Gets outgoing edges map.
+     *
+     * @return copy of outgoing edges map.
      */
     public HashMap<L, Edge<L>> getOutgoingEdges() {
         HashMap<L, Edge<L>>copyOfOutEdges = new HashMap<L, Edge<L>>(outEdges);
@@ -69,7 +74,9 @@ public class Node<L,D> {
     }
 
     /**
-     * @return copy of the map of ingoing edges.
+     * Gets ingoing edges map.
+     *
+     * @return copy of ingoing edges map.
      */
     public HashMap<L, Edge<L>> getIncomingEdges() {
         HashMap<L, Edge<L>>copyOfInEdges = new HashMap<L, Edge<L>>(inEdges);
@@ -77,7 +84,9 @@ public class Node<L,D> {
     }
 
     /**
-     * @return copy of list of parent nodes.
+     * Gets node's parents list.
+     *
+     * @return copy of list of parents nodes.
      */
     public List<Node<L, D>> getNodesParents() {
         ArrayList<Node<L, D>> copyOfParentsList =
@@ -86,6 +95,8 @@ public class Node<L,D> {
     }
 
     /**
+     * Gets node's children list.
+     *
      * @return copy of list of child nodes.
      */
     public List<Node<L, D>> getNodesChildren() {
@@ -95,7 +106,9 @@ public class Node<L,D> {
     }
 
     /**
-     * Check rep.
+     * Check representation.
+     *
+     * @effects Checks the Representation Invariant is kept
      */
     private void checkRep() {
         assert (this.color == NodeColor.BLACK || this.color == NodeColor.WHITE) :

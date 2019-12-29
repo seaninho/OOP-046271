@@ -3,23 +3,32 @@ package homework2;
 import java.util.*;
 
 /**
- * This class implements BipartiteGraph.
- * Each node and edge in the graph has a label of type L.
- * Each node's label is uniq.
- * Each edge can only connect nodes of different types.
+ * This class represents a directed colored graph, called Bipartite Graph.
+ * Each node in a Bipartite Graph is either BLACK or WHITE.
+ * Each node in a Bipartite Graph contains data of type D.
+ * Each edge in a Bipartite Graph connects between a black node to a white node.
+ * Each node and edge in the Bipartite Graph has a label of type L.
+ *
+ * Each Bipartite Graph upholds these following conventions:
+ * 1. Nodes cannot be connected to themselves.
+ * 2. Nodes cannot be connected to a same color node, meaning a BLACK colored
+ *    node can only be connected to a WHITE color node.
  */
 public class BipartiteGraph<L, D> {
     // Abstraction function:
 
     // Representation Invariant:
 
-    private Map<L, Node<D>> nodes; // L for label
+    private Map<L, Node<L, D>> nodes;
+
     /**
+     * Bipartite Graph constructor.
+     *
      * @modifies this
      * @effects Constructs a new graph.
      */
     public BipartiteGraph() {
-        nodes = new HashMap<L, Node<D>>();
+        nodes = new HashMap<>();
         checkRep();
     }
 
@@ -37,7 +46,7 @@ public class BipartiteGraph<L, D> {
             throw new BadGraphHandleException("Cannot add a node with " +
                     "null nodeName");
         }
-        Node<D> newNode = new Node<D>(data, type);
+        Node<L, D> newNode = new Node<L, D>(data, type);
         nodes.put((L)nodeLabel, newNode);
     }
 
