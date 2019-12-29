@@ -40,8 +40,8 @@ public class BipartiteGraph<L> {
      * @effects Adds a black node represented by the String nodeName to the
      * 			graph named graphName.
      */
-    public void addBlackNode(L nodeName) {
-
+    public void addBlackNode(L nodeName, NodeType<?> nodeType) {
+        this.addNode();
     }
 
     /**
@@ -51,7 +51,7 @@ public class BipartiteGraph<L> {
      * @effects Adds a white node represented by the String nodeName to the
      * 			graph named graphName.
      */
-    public void addWhiteNode(String graphName, String nodeName) {
+    public void addWhiteNode(L nodeName) {
 
     }
 
@@ -133,14 +133,14 @@ public class BipartiteGraph<L> {
     /**
      *
      */
-    private boolean isConnected(Object srcNode, Object dstNode) {
+    private boolean isConnected(L srcNodeLabel, L dstNodeLabel) {
 
     }
 
     /**
      * @return list of all the nodes between srcNode and dstNode.
      */
-    private List<Object> getPath(Object srcNode, Object dstNode) {
+    private List<L> getPath(L srcNode, L dstNode) {
 
     }
 
@@ -151,7 +151,7 @@ public class BipartiteGraph<L> {
      * @effects Adds a white node represented by the String nodeName to the
      * 			graph named graphName.
      */
-    private void addNode(String graphName, String nodeName) {
+    private void addNode(L nodeLabel, D nodeData) {
 
     }
 
