@@ -22,20 +22,12 @@ public class Edge<L> {
     /**
      * Edge constructor.
      *
+     * @requires label != null && srcNodeLabel != null && dstNodeLabel != null
      * @modifies this
      * @effects Instantiates a new edge.
-     * @throws NullPointerException when invoked with null parameters
-     * @throws SrcNodeIsSameAsDstNodeException when invoked with null parameters
      *
      */
-    public Edge(L label, L srcNodeLabel, L dstNodeLabel)
-            throws SrcNodeIsSameAsDstNodeException {
-        if (label == null || srcNodeLabel == null || dstNodeLabel == null) {
-            throw new NullPointerException();
-        }
-        if (srcNodeLabel == dstNodeLabel) {
-            throw new SrcNodeIsSameAsDstNodeException();
-        }
+    public Edge(L label, L srcNodeLabel, L dstNodeLabel) {
         this.label = label;
         this.srcNodeLabel = srcNodeLabel;
         this.dstNodeLabel = dstNodeLabel;

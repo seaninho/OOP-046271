@@ -18,39 +18,46 @@ enum NodeColor {
  */
 public class Node<L, T> {
     // Abstraction function:
-    // Node n contains nodeType (of type T), label of type L
-    // and color (of type NodeColor).
+    // A node has a color (BLACK or WHITE), a type (of type T) and a label
+    // (of type L).
+    // A Node has a parents list which contains all of its parent nodes.
+    // A Node has a children list which contains all of its child nodes.
+    // A node has a incoming edges map which contains all of its parent nodes
+    // and incoming edges.
+    // A node has a outgoing edges map which contains all of its child nodes
+    // and outgoing edges.
 
     // Representation Invariant for every Node n:
-    // For each node n, n.data != NULL, n.label != NULL
-    // and n.color == BLACK || n.color == WHITE
+    // Node color can only be BLACK or WHITE.
+    // Node type cannot be null.
+    // Node label cannot be null.
+    // Node cannot be a child or a parent of itself.
+    // Each edge in incoming or outgoing edges has a unique label.
+    // Each node label in incoming or outgoing edges is unique.
 
     private final NodeColor color;
     private final NodeType<T> type;
     private final L label;
 
-    private List<Node<L, T>> parentsList;
-    private List<Node<L, T>> childrenList;
+    private List<L> parentsList;
+    private List<L> childrenList;
     private Map<L, Edge<L>> inEdges;
     private Map<L, Edge<L>> outEdges;
 
     /**
      * Node constructor.
      *
+     * @requires color != null && type != null && label != null
      * @modifies this
      * @effects Instantiates a new node.
-     * @throws NullPointerException when invoked with null parameters
      */
-    public Node(NodeColor color, NodeType<T> type, L label) throws NullPointerException {
-        if (color == null || type == null || label == null) {
-            throw new NullPointerException();
-        }
-        parentsList = new ArrayList<Node<L, T>>();
-        childrenList = new ArrayList<Node<L, T>>();
+    public Node(NodeColor color, NodeType<T> type, L label) {
+        parentsList = new ArrayList<L>();
+        childrenList = new ArrayList<L>();
         inEdges = new HashMap<L, Edge<L>>();
         outEdges = new HashMap<L, Edge<L>>();
         this.color = color;
-        this.type = NodeType<T>;
+        this.type = type;
         this.label = label;
         checkRep();
     }
@@ -60,17 +67,26 @@ public class Node<L, T> {
      *
      * @return the nodes color.
      */
-    public NodeColor getColor() {
+    public NodeColor getNodeColor() {
         return this.color;
     }
 
     /**
-     * Gets node data.
+     * Gets node type.
      *
-     * @return the node data.
+     * @return the node type.
      */
-    public D getNodeData() {
-        return this.data;
+    public NodeType<T> getNodeType() {
+        return this.type;
+    }
+
+    /**
+     * Gets node label.
+     *
+     * @return the node label.
+     */
+    public L getNodeLabel() {
+        return this.label;
     }
 
     /**
@@ -96,8 +112,8 @@ public class Node<L, T> {
      *
      * @return copy of list of parents nodes.
      */
-    public List<Node<L, D>> getNodesParents() {
-        return new ArrayList<Node<L, D>>(parentsList);
+    public List<L> getNodesParents() {
+        return new ArrayList<L>(parentsList);
     }
 
     /**
@@ -105,8 +121,38 @@ public class Node<L, T> {
      *
      * @return copy of list of child nodes.
      */
-    public List<Node<L, D>> getNodesChildren() {
-        return new ArrayList<Node<L, D>>(childrenList);
+    public List<L> getNodesChildren() {
+        return new ArrayList<L>(childrenList);
+    }
+
+    /**
+     * @requires cLabel != null && eLabel != null
+     * @modifies this
+     * @effects Adds the child node label to node's childrenList and
+     * 			adds an edge connecting the node and its child to the
+     * 			outgoing edge map.
+     */
+    public void addChildNode(L cLabel, L eLabel) {
+        Edge<L> newEdge = new Edge<>(eLabel, this.label, cLabel);
+        this.outEdges.put(eLabel, newEdge);
+        checkRep();
+        this.childrenList.add(cLabel);
+        checkRep();
+    }
+
+    /**
+     * @requires pLabel != null && eLabel != null
+     * @modifies this
+     * @effects Adds the parent node label to node's parentsList and
+     * 			adds an edge connecting the node and its parents to the
+     * 			incoming edge map.
+     */
+    public void addParentNode(L pLabel, L eLabel) {
+        Edge<L> newEdge = new Edge<>(eLabel, pLabel, this.label);
+        this.inEdges.put(eLabel, newEdge);
+        checkRep();
+        this.parentsList.add(pLabel);
+        checkRep();
     }
 
     /**
@@ -115,12 +161,15 @@ public class Node<L, T> {
      * @effects Checks the Representation Invariant is kept
      */
     private void checkRep() {
-        assert (this.label != null) :
-                "Node label cannot be null";
-        assert (this.data != null) :
-                "Node data cannot be null";
         assert (this.color == NodeColor.BLACK || this.color == NodeColor.WHITE) :
                 "Nodes color is illegal";
-
+        assert (this.type != null) :
+                "Node type cannot be null";
+        assert (this.label != null) :
+                "Node label cannot be null";
+        assert (this.parentsList.contains(this.getNodeLabel())) :
+                "Node cannot be its own parent";
+        assert (this.childrenList.contains(this.getNodeLabel())) :
+                "Node cannot be its own child";
     }
 }

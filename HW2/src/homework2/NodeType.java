@@ -22,7 +22,7 @@ public class NodeType<T> {
      */
     public NodeType(T type) {
         if (type == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Node type cannot be null");
         }
         this.type = type;
         checkRep();

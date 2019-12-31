@@ -5,7 +5,6 @@ package homework2;
  * destination node (forbidden situation).
  */
 public class SrcNodeIsSameAsDstNodeException extends Throwable {
-
     /**
      * The Constructor.
      *
