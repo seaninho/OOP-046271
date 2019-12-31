@@ -34,6 +34,20 @@ public class BipartiteGraphTest {
     
     
     //  TODO: Add black-box tests
-    
+    @Test
+    public void testAddNode() {
+        BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
+
+        //create 3 graphs
+        driver.createGraph("graph1");
+        driver.createGraph("graph2");
+        driver.createGraph("graph3");
+
+        //add a pair of nodes with the same label
+        driver.addBlackNode("graph1", "n1");
+        driver.addWhiteNode("graph1", "n1");
+
+
+    }
   
 }
