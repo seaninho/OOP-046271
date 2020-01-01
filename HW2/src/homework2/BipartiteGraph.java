@@ -86,9 +86,12 @@ public class BipartiteGraph<L> {
      * @param eLabel - edge label.
      */
     public void addEdge(L pLabel, L cLabel, L eLabel) throws
-            NodeLabelDoesNotExistException, EdgeIsNotConnectedToNodeException,
-            SrcNodeIsSameAsDstNodeException, EdgeLabelAlreadyExistsException
+            NodeLabelDoesNotExistException,
+            SrcNodeIsSameAsDstNodeException,
+            EdgeLabelAlreadyExistsException,
+            EdgeConnectingSameColorNodesException
     {
+        checkRep();
         if (pLabel == null) {
             throw new NullPointerException("Parent node label cannot be null");
         }
@@ -106,9 +109,12 @@ public class BipartiteGraph<L> {
             throw new NodeLabelDoesNotExistException("Child node does not" +
                     " exist");
         }
+        if (pLabel == cLabel) {
+            throw new SrcNodeIsSameAsDstNodeException();
+        }
         if (this.graphNodes.get(pLabel).getNodeColor() ==
-                this.graphNodes.get(pLabel).getNodeColor()) {
-            throw new EdgeIsNotConnectedToNodeException();
+                this.graphNodes.get(cLabel).getNodeColor()) {
+            throw new EdgeConnectingSameColorNodesException();
         }
         if (this.graphNodes.get(pLabel).getOutgoingEdges().containsKey(eLabel)) {
             throw new EdgeLabelAlreadyExistsException("Each outgoing edge has" +
@@ -121,9 +127,6 @@ public class BipartiteGraph<L> {
         if (this.graphNodes.get(pLabel).getNodeChildren().contains(cLabel)) {
             throw new EdgeLabelAlreadyExistsException("Parallel edge are not " +
                     "allowed");
-        }
-        if (pLabel == cLabel) {
-            throw new SrcNodeIsSameAsDstNodeException();
         }
 
         this.graphNodes.get(pLabel).addChildNode(cLabel, eLabel);
@@ -327,6 +330,7 @@ public class BipartiteGraph<L> {
      * Check for null node labels.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
     private boolean checkNodeLabelRestrictions() {
         for (L nodeLabel : this.graphNodes.keySet()) {
@@ -341,6 +345,7 @@ public class BipartiteGraph<L> {
      * Check for null node colors.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
     private boolean checkNodeColorRestrictions() {
         for (Node<L, ?> node : this.graphNodes.values()) {
@@ -355,6 +360,7 @@ public class BipartiteGraph<L> {
      * Check for null node types.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
     private boolean checkNodeTypeRestrictions() {
         for (Node<L, ?> node : this.graphNodes.values()) {
@@ -370,8 +376,9 @@ public class BipartiteGraph<L> {
      * e.g. BLACK node connected to a BLACK node.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
-    private boolean checkForSameNodeColorConnection() {
+    private boolean checkSameNodeColorConnectionRestrictions() {
         for (Node<L, ?> node : this.graphNodes.values()) {
             // Check child nodes
             for (L cLabel : node.getNodeChildren()) {
@@ -395,19 +402,24 @@ public class BipartiteGraph<L> {
      * Check for self loops in graph.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
-    private boolean checkSelfLoops() {
+    private boolean checkSelfLoopsRestrictions() {
         for (Node<L, ?> node : this.graphNodes.values()) {
             // Check child nodes
-            for (L cLabel : node.getNodeChildren()) {
-                if (node.getNodeLabel() == cLabel) {
-                    return false;
+            if (node.getNodeChildren().size() > 0) {
+                for (L cLabel : node.getNodeChildren()) {
+                    if (node.getNodeLabel() == cLabel) {
+                        return false;
+                    }
                 }
             }
             // Check parent nodes
-            for (L pLabel : node.getNodeParents()) {
-                if (node.getNodeLabel() == pLabel) {
-                    return false;
+            if (node.getNodeParents().size() > 0) {
+                for (L pLabel : node.getNodeParents()) {
+                    if (node.getNodeLabel() == pLabel) {
+                        return false;
+                    }
                 }
             }
         }
@@ -418,6 +430,7 @@ public class BipartiteGraph<L> {
      * Check for parallel edges in graph.
      *
      * @effects Checks the Representation Invariant is kept.
+     * @return true if restrictions are met, false otherwise.
      */
     private boolean checkParallelEdgesRestrictions() {
         for (Node<L, ?> node : this.graphNodes.values()) {
@@ -441,9 +454,9 @@ public class BipartiteGraph<L> {
                 "Node color cannot be null";
         assert (this.checkNodeTypeRestrictions()) :
                 "Node type cannot be null";
-        assert (this.checkForSameNodeColorConnection()) :
+        assert (this.checkSameNodeColorConnectionRestrictions()) :
                 "Connected nodes must be of a different color!";
-        assert (this.checkSelfLoops()) :
+        assert (this.checkSelfLoopsRestrictions()) :
                 "Self loops are not allowed!";
         assert (this.checkParallelEdgesRestrictions()) :
                 "Parallel edges are not allowed!";

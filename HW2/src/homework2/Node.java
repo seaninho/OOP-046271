@@ -130,6 +130,8 @@ public class Node<L, T> {
      * @effects Adds the child node label to node's childrenList and
      * 			adds an edge connecting the node and its child to the
      * 			outgoing edge map.
+     * @param cLabel - child label
+     * @param eLabel - edge label
      */
     public void addChildNode(L cLabel, L eLabel) {
         Edge<L> newEdge = new Edge<>(eLabel, this.label, cLabel);
@@ -175,9 +177,11 @@ public class Node<L, T> {
                 "Node type cannot be null";
         assert (this.label != null) :
                 "Node label cannot be null";
-        assert (this.parentsList.contains(this.getNodeLabel())) :
+        assert (this.parentsList.size() <= 0 ||
+                !this.parentsList.contains(this.getNodeLabel())) :
                 "Node cannot be its own parent";
-        assert (this.childrenList.contains(this.getNodeLabel())) :
+        assert (this.childrenList.size() <= 0 ||
+                !this.childrenList.contains(this.getNodeLabel())) :
                 "Node cannot be its own child";
         assert (!this.checkParallelEdges(parentsList)) :
                 "Node has two different edges connected to same parent";

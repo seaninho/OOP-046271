@@ -83,10 +83,10 @@ public class BipartiteGraphTestDriver {
      */
     public void addEdge(String graphName, String parentName, String childName,
                         String edgeLabel) throws
-            EdgeIsNotConnectedToNodeException,
             SrcNodeIsSameAsDstNodeException,
             EdgeLabelAlreadyExistsException,
-            NodeLabelDoesNotExistException
+            NodeLabelDoesNotExistException,
+            EdgeConnectingSameColorNodesException
     {
         graphs.get(graphName).addEdge(parentName, childName, edgeLabel);
     }
