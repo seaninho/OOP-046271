@@ -12,8 +12,7 @@ public class Edge<L> {
     //	 nodes' labels: srcNodeLabel, destNodeLabel.
     //
     //	 Representation Invariant:
-    //	 An edge cannot connect a node to itself.
-    //	 label, srcNodeLabel and dstNodeLabel cannot be null.
+    //	 Edge label, srcNodeLabel and dstNodeLabel cannot be null.
 
     private final L label;
     private L srcNodeLabel;

@@ -32,8 +32,7 @@ public class Node<L, T> {
     // Node type cannot be null.
     // Node label cannot be null.
     // Node cannot be a child or a parent of itself.
-    // Each edge in incoming or outgoing edges has a unique label.
-    // Each node label in incoming or outgoing edges is unique.
+    // Each node in parents or children list is unique (no parallel edges).
 
     private final NodeColor color;
     private final NodeType<T> type;
@@ -112,7 +111,7 @@ public class Node<L, T> {
      *
      * @return copy of list of parents nodes.
      */
-    public List<L> getNodesParents() {
+    public List<L> getNodeParents() {
         return new ArrayList<L>(parentsList);
     }
 
@@ -121,7 +120,7 @@ public class Node<L, T> {
      *
      * @return copy of list of child nodes.
      */
-    public List<L> getNodesChildren() {
+    public List<L> getNodeChildren() {
         return new ArrayList<L>(childrenList);
     }
 
@@ -135,7 +134,6 @@ public class Node<L, T> {
     public void addChildNode(L cLabel, L eLabel) {
         Edge<L> newEdge = new Edge<>(eLabel, this.label, cLabel);
         this.outEdges.put(eLabel, newEdge);
-        checkRep();
         this.childrenList.add(cLabel);
         checkRep();
     }
@@ -150,9 +148,19 @@ public class Node<L, T> {
     public void addParentNode(L pLabel, L eLabel) {
         Edge<L> newEdge = new Edge<>(eLabel, pLabel, this.label);
         this.inEdges.put(eLabel, newEdge);
-        checkRep();
         this.parentsList.add(pLabel);
         checkRep();
+    }
+
+    public boolean checkParallelEdges(List<L> nodeList) {
+        List<L> tempList = new ArrayList<L>();
+        for (L node : nodeList) {
+            if (tempList.contains(node)) {
+                return true;
+            }
+            tempList.add(node);
+        }
+        return false;
     }
 
     /**
@@ -171,5 +179,9 @@ public class Node<L, T> {
                 "Node cannot be its own parent";
         assert (this.childrenList.contains(this.getNodeLabel())) :
                 "Node cannot be its own child";
+        assert (!this.checkParallelEdges(parentsList)) :
+                "Node has two different edges connected to same parent";
+        assert (!this.checkParallelEdges(childrenList)) :
+                "Node has two different edges connected to same child";
     }
 }
