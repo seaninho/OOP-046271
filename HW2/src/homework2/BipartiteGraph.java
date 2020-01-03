@@ -135,7 +135,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Get node by a given label.
+     * Gets node by a given label.
      *
      * @return a node object labeled nodeLabel.
      */
@@ -180,7 +180,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Get graph size.
+     * Gets graph size.
      *
      * @return number of nodes in graph.
      */
@@ -225,7 +225,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Get a node by its parent node and the edge connecting them.
+     * Gets a node by its parent node and the edge connecting them.
      *
      * @return parent's (pLabel) child, connected by the edge labeled eLabel.
      * @param pLabel - parent label
@@ -254,7 +254,7 @@ public class BipartiteGraph<L> {
 
 
     /**
-     * Get a node by its child node and the edge connecting them.
+     * Gets a node by its child node and the edge connecting them.
      *
      * @return child's (cLabel) parent, connected by the edge labeled eLabel.
      * @param cLabel - child label
@@ -282,7 +282,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Add a node to the graph.
+     * Adds a node to the graph.
      *
      * @modifies graph named graphName
      * @effects Adds a white node represented by the String nodeName to the
@@ -327,7 +327,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for null node labels.
+     * Checks for null node labels.
      *
      * @effects Checks the Representation Invariant is kept.
      * @return true if restrictions are met, false otherwise.
@@ -342,7 +342,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for null node colors.
+     * Checks for null node colors.
      *
      * @effects Checks the Representation Invariant is kept.
      * @return true if restrictions are met, false otherwise.
@@ -357,7 +357,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for null node types.
+     * Checks for null node types.
      *
      * @effects Checks the Representation Invariant is kept.
      * @return true if restrictions are met, false otherwise.
@@ -372,7 +372,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for same color connections in graph,
+     * Checks for same color connections in graph,
      * e.g. BLACK node connected to a BLACK node.
      *
      * @effects Checks the Representation Invariant is kept.
@@ -399,7 +399,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for self loops in graph.
+     * Checks for self loops in graph.
      *
      * @effects Checks the Representation Invariant is kept.
      * @return true if restrictions are met, false otherwise.
@@ -427,7 +427,7 @@ public class BipartiteGraph<L> {
     }
 
     /**
-     * Check for parallel edges in graph.
+     * Checks for parallel edges in graph.
      *
      * @effects Checks the Representation Invariant is kept.
      * @return true if restrictions are met, false otherwise.

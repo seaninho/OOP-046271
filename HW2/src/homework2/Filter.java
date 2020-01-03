@@ -39,16 +39,48 @@ public abstract class Filter<L, O> implements Simulatable<L> {
         return new ArrayList<>(this.objectsBuffer);
     }
 
+    /**
+     * Adds work object to filter.
+     *
+     * @modifies this
+     * @effects adds a new work object to filter.
+     */
+    public void addWorkObject(O object) {
+        checkRep();
+        if (object == null) {
+            throw new NullPointerException("Work object cannot be null");
+        }
+        this.objectsBuffer.add(object);
+        checkRep();
+    }
+
+    /**
+     * Removes oldest work object from filter.
+     *
+     * @modifies this
+     * @effects removes the oldest work object from filter.
+     */
+    public O removeWorkObject() {
+        checkRep();
+        if (!this.objectsBuffer.isEmpty()) {
+            O workObject = this.objectsBuffer.remove(0);
+            checkRep();
+            return workObject;
+        } else {
+            return null;
+        }
+    }
+
     public List<Pipe<L, O>> listIncomingPipes(BipartiteGraph<L> graph) throws
             FilterLabelDoesNotExistException
     {
         try {
             Node<L, ?> node = graph.getNodeByLabel(this.label);
-            if (node.getNodeType().getType() != this) {
-                throw new
-            }
+//            if (node.getNodeType().getType() != this) {
+//                throw new
+//            }
             List<Pipe<L, O>> incomingPipes = new ArrayList<>();
-            for (L pipe : graph.listParents(this.label)) {
+            for (L pipe : graph.listParents(node.getNodeLabel())) {
                 NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
                 incomingPipes.add((Pipe<L, O>)nodeType.getType());
             }
@@ -63,11 +95,11 @@ public abstract class Filter<L, O> implements Simulatable<L> {
     {
         try {
             Node<L, ?> node = graph.getNodeByLabel(this.label);
-            if (node.getNodeType().getType() != this) {
-                throw new
-            }
+//            if (node.getNodeType().getType() != this) {
+//                throw new
+//            }
             List<Pipe<L, O>> outgoingPipes = new ArrayList<>();
-            for (L pipe : graph.listChildren(this.label)) {
+            for (L pipe : graph.listChildren(node.getNodeLabel())) {
                 NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
                 outgoingPipes.add((Pipe<L, O>)nodeType.getType());
             }
