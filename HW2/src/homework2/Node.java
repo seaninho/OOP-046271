@@ -94,7 +94,7 @@ public class Node<L, T> {
      * @return copy of outgoing edges map.
      */
     public HashMap<L, Edge<L>> getOutgoingEdges() {
-        return new HashMap<L, Edge<L>>(outEdges);
+        return new HashMap<>(outEdges);
     }
 
     /**
@@ -103,7 +103,7 @@ public class Node<L, T> {
      * @return copy of ingoing edges map.
      */
     public HashMap<L, Edge<L>> getIncomingEdges() {
-        return new HashMap<L, Edge<L>>(inEdges);
+        return new HashMap<>(inEdges);
     }
 
     /**
@@ -112,7 +112,7 @@ public class Node<L, T> {
      * @return copy of list of parents nodes.
      */
     public List<L> getNodeParents() {
-        return new ArrayList<L>(parentsList);
+        return new ArrayList<>(parentsList);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Node<L, T> {
      * @return copy of list of child nodes.
      */
     public List<L> getNodeChildren() {
-        return new ArrayList<L>(childrenList);
+        return new ArrayList<>(childrenList);
     }
 
     /**

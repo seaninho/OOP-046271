@@ -506,7 +506,7 @@ public class BipartiteGraphTest {
         graph.addWhiteNode("n1", new NodeType<>("n1"));
 
         assertEquals("wrong node color", NodeColor.WHITE, graph.getNodeByLabel("n1").getNodeColor());
-        assertEquals("wrong node type", "n1", graph.getNodeByLabel("n1").getNodeType().getNodeType());
+        assertEquals("wrong node type", "n1", graph.getNodeByLabel("n1").getNodeType().getType());
         assertEquals("wrong node label", "n1", graph.getNodeByLabel("n1").getNodeLabel());
     }
 

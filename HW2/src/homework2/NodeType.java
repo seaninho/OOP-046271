@@ -2,7 +2,7 @@ package homework2;
 
 /**
  * This class represents the type of a Bipartite Graph node.
- * Node type is denoted by generic type T.
+ * Node type can be any type T.
  */
 public class NodeType<T> {
     //	 Abstraction function:
@@ -33,7 +33,7 @@ public class NodeType<T> {
      *
      * @effects Returns the edge label
      */
-    public T getNodeType() {
+    public T getType() {
         return this.type;
     }
 

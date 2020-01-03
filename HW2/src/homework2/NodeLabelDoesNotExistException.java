@@ -2,7 +2,7 @@ package homework2;
 
 /**
  * A NodeLabelDoesNotExistException indicates graph does not contain a node
- * holding required label.
+ * holding the given label.
  */
 public class NodeLabelDoesNotExistException extends Throwable {
     /**
