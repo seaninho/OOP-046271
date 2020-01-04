@@ -85,10 +85,8 @@ public class BipartiteGraph<L> {
      * @effects Adds an edge from the node pLabel to the node cLabel
      * 			in the graph. The new edge's label is the Object
      * 			eLabel.
-     * @throws NullPointerException when either node label 'pLabel', 'cLabel' or
-     *          edge label 'eLabel' is null.
-     * @throws NodeLabelAlreadyExistsException when node label 'pLabel' or
-     *          'cLabel' already exists in graph.
+     * @throws NodeLabelDoesNotExistException when node label 'pLabel' or
+     *          'cLabel' does not exists in graph.
      * @throws SrcNodeIsSameAsDstNodeException when attempting to connect a node
      *          to itself, thereby creating a self-loop
      * @throws EdgeLabelAlreadyExistsException when edge label 'eLabel' already
@@ -152,7 +150,6 @@ public class BipartiteGraph<L> {
      * Gets node by a given label.
      *
      * @return a node object labeled nodeLabel.
-     * @throws NullPointerException when node label 'nodeLabel' is null.
      * @throws NodeLabelAlreadyExistsException when node label 'nodeLabel'
      *          already exists in graph.
      */
@@ -249,8 +246,6 @@ public class BipartiteGraph<L> {
      * Gets a node by its parent node and the edge connecting them.
      *
      * @return parent's (pLabel) child, connected by the edge labeled eLabel.
-     * @throws NullPointerException when either node label 'pLabel' or
-     *          edge label 'eLabel' is null.
      * @throws NodeLabelDoesNotExistException when node label 'pLabel' does not
      *          exist in graph.
      * @throws EdgeIsNotConnectedToNodeException when edge label 'eLabel' is not
@@ -285,8 +280,6 @@ public class BipartiteGraph<L> {
      * Gets a node by its child node and the edge connecting them.
      *
      * @return child's (cLabel) parent, connected by the edge labeled eLabel.
-     * @throws NullPointerException when either node label 'cLabel' or
-     *          edge label 'eLabel' is null.
      * @throws NodeLabelDoesNotExistException when node label 'cLabel' does not
      *          exist in graph.
      * @throws EdgeIsNotConnectedToNodeException when edge label 'eLabel' is not
@@ -319,11 +312,9 @@ public class BipartiteGraph<L> {
     /**
      * Adds a node to the graph.
      *
-     * @modifies graph named graphName
-     * @effects Adds a white node represented by the String nodeName to the
-     * 			graph named graphName.
-     * @throws NullPointerException when either node color 'color', node type
-     *          'type' or node label 'label' is null.
+     * @modifies this
+     * @effects Adds a node colored 'color', of type 'type' and labeled 'label'
+     *          to the graph.
      * @throws NodeLabelAlreadyExistsException when node label 'label'
      *          already exists in graph.
      */

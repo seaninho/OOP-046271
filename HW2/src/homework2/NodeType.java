@@ -18,7 +18,6 @@ public class NodeType<T> {
      *
      * @modifies this
      * @effects Instantiates a new node type.
-     * @throws NullPointerException when invoked with null parameters
      */
     public NodeType(T type) {
         if (type == null) {

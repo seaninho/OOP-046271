@@ -34,7 +34,6 @@ public abstract class Pipe<L, O> implements Simulatable {
      *
      * @modifies this
      * @effects Constructs a pipe.
-     * @throws NullPointerException when pipe label 'label' is null.
      * @throws PipeMaxCapacityIsNotPositive when pipe's limit capacity is not
      *          a positive int.
      */
@@ -84,7 +83,6 @@ public abstract class Pipe<L, O> implements Simulatable {
      *
      * @modifies this
      * @effects adds a new work object to pipe.
-     * @throws NullPointerException when work object 'object' is null.
      * @throws PipeMaxCapacityReached when pipe's max capacity is reached and
      *          pipe can no longer hold work objects in its objects buffer.
      */

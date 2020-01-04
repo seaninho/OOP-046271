@@ -25,7 +25,6 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      *
      * @modifies this
      * @effects Constructs a filter.
-     * @throws NullPointerException when filter label 'label' is null.
      */
     public Filter(L label) {
         if (label == null) {
@@ -59,7 +58,6 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      *
      * @modifies this
      * @effects adds a new work object to filter.
-     * @throws NullPointerException when work object 'object' is null.
      */
     public void addWorkObject(O object) {
         checkRep();
@@ -91,7 +89,6 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      * Gets filter's incoming pipes list.
      *
      * @return a list containing filter's incoming pipes.
-     * @throws NullPointerException when graph 'graph' is null.
      * @throws NodeLabelDoesNotExistException when filter label does not exist
      *          in graph.
      */
@@ -114,7 +111,6 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      * Gets filter's outgoing pipes list.
      *
      * @return a list containing filter's outgoing pipes.
-     * @throws NullPointerException when graph 'graph' is null.
      * @throws NodeLabelDoesNotExistException when filter label does not exist
      *          in graph.
      */
