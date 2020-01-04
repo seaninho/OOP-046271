@@ -90,7 +90,7 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      *
      * @return a list containing filter's incoming pipes.
      * @throws NodeLabelDoesNotExistException when filter label does not exist
-     *          in graph.
+     *         in graph.
      */
     public List<Pipe<L, O>> listIncomingPipes(BipartiteGraph<L> graph) throws
             NodeLabelDoesNotExistException
@@ -112,7 +112,7 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      *
      * @return a list containing filter's outgoing pipes.
      * @throws NodeLabelDoesNotExistException when filter label does not exist
-     *          in graph.
+     *         in graph.
      */
     public List<Pipe<L, O>> listOutgoingPipes(BipartiteGraph<L> graph) throws
             NodeLabelDoesNotExistException
@@ -125,6 +125,13 @@ public abstract class Filter<L, O> implements Simulatable<L> {
         }
         return outgoingPipes;
     }
+
+    /**
+     * @modifies this, graph
+     * @effects Simulates this filter in a system modeled by graph
+     */
+    @Override
+    public abstract void simulate(BipartiteGraph graph);
 
     /**
      * Checks for a null work object.

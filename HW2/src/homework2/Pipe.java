@@ -35,7 +35,7 @@ public abstract class Pipe<L, O> implements Simulatable {
      * @modifies this
      * @effects Constructs a pipe.
      * @throws PipeMaxCapacityIsNotPositive when pipe's limit capacity is not
-     *          a positive int.
+     *         a positive int.
      */
     public Pipe(L label, int limit) throws PipeMaxCapacityIsNotPositive {
         if (label == null) {
@@ -84,7 +84,7 @@ public abstract class Pipe<L, O> implements Simulatable {
      * @modifies this
      * @effects adds a new work object to pipe.
      * @throws PipeMaxCapacityReached when pipe's max capacity is reached and
-     *          pipe can no longer hold work objects in its objects buffer.
+     *         pipe can no longer hold work objects in its objects buffer.
      */
     public void addWorkObject(O object) throws PipeMaxCapacityReached {
         checkRep();
@@ -116,6 +116,13 @@ public abstract class Pipe<L, O> implements Simulatable {
             return null;
         }
     }
+
+    /**
+     * @modifies this, graph
+     * @effects Simulates this pipe in a system modeled by graph
+     */
+    @Override
+    public abstract void simulate(BipartiteGraph graph);
 
     /**
      * Check representation.
