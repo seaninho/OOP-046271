@@ -11,10 +11,9 @@ enum NodeColor {
 }
 
 /**
- * This class implements a graph node.
- * Each node has a label of type L.
- * Each node is of type T.
- * Each node is either "BLACK" or "WHITE".
+ * Node represents a node in a Bipartite Graph.
+ * A node in a Bipartite Graph is either "BLACK" or "WHITE".
+ * Each node is of type T, and has a label of type L.
  */
 public class Node<L, T> {
     // Abstraction function:
@@ -154,6 +153,12 @@ public class Node<L, T> {
         checkRep();
     }
 
+    /**
+     * Checks for parallel edges.
+     *
+     * @effects Checks the Representation Invariant is kept.
+     * @return true if there are a pair of parallel edges.
+     */
     public boolean checkParallelEdges(List<L> nodeList) {
         List<L> tempList = new ArrayList<L>();
         for (L node : nodeList) {

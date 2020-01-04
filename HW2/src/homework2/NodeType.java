@@ -1,8 +1,8 @@
 package homework2;
 
 /**
- * This class represents the type of a Bipartite Graph node.
- * Node type can be any type T.
+ * NodeType represents the type of a Bipartite Graph node.
+ * Node type can be of any type T.
  */
 public class NodeType<T> {
     //	 Abstraction function:

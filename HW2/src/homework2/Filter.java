@@ -3,15 +3,30 @@ package homework2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Filter represents a filter in a Pipe-Filter system.
+ * A filter is an abstract type.
+ * A filter has a label of type L, and objects of type O.
+ */
 public abstract class Filter<L, O> implements Simulatable<L> {
     // Abstraction function:
+    // A filter has a label of type L and an objects buffer that holds all work
+    // objects waiting to be moved.
 
     // Representation Invariant:
+    // Filter label cannot be null.
+    // Filter's objects buffer does not contain a null object.
 
     private L label;
     private List<O> objectsBuffer;
 
-
+    /**
+     * Filter constructor.
+     *
+     * @modifies this
+     * @effects Constructs a filter.
+     * @throws NullPointerException when filter label 'label' is null.
+     */
     public Filter(L label) {
         if (label == null) {
             throw new NullPointerException("Filter label cannot be null");
@@ -44,6 +59,7 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      *
      * @modifies this
      * @effects adds a new work object to filter.
+     * @throws NullPointerException when work object 'object' is null.
      */
     public void addWorkObject(O object) {
         checkRep();
@@ -71,42 +87,62 @@ public abstract class Filter<L, O> implements Simulatable<L> {
         }
     }
 
+    /**
+     * Gets filter's incoming pipes list.
+     *
+     * @return a list containing filter's incoming pipes.
+     * @throws NullPointerException when graph 'graph' is null.
+     * @throws NodeLabelDoesNotExistException when filter label does not exist
+     *          in graph.
+     */
     public List<Pipe<L, O>> listIncomingPipes(BipartiteGraph<L> graph) throws
-            FilterLabelDoesNotExistException
+            NodeLabelDoesNotExistException
     {
-        try {
-            Node<L, ?> node = graph.getNodeByLabel(this.label);
-//            if (node.getNodeType().getType() != this) {
-//                throw new
-//            }
-            List<Pipe<L, O>> incomingPipes = new ArrayList<>();
-            for (L pipe : graph.listParents(node.getNodeLabel())) {
-                NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
-                incomingPipes.add((Pipe<L, O>)nodeType.getType());
-            }
-            return incomingPipes;
-        } catch (NodeLabelDoesNotExistException e) {
-            throw new FilterLabelDoesNotExistException();
+        if (graph == null) {
+            throw new NullPointerException("Graph cannot be null");
         }
+        Node<L, ?> node = graph.getNodeByLabel(this.label);
+        List<Pipe<L, O>> incomingPipes = new ArrayList<>();
+        for (L pipe : graph.listParents(node.getNodeLabel())) {
+            NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
+            incomingPipes.add((Pipe<L, O>)nodeType.getType());
+        }
+        return incomingPipes;
     }
 
+    /**
+     * Gets filter's outgoing pipes list.
+     *
+     * @return a list containing filter's outgoing pipes.
+     * @throws NullPointerException when graph 'graph' is null.
+     * @throws NodeLabelDoesNotExistException when filter label does not exist
+     *          in graph.
+     */
     public List<Pipe<L, O>> listOutgoingPipes(BipartiteGraph<L> graph) throws
-            FilterLabelDoesNotExistException
+            NodeLabelDoesNotExistException
     {
-        try {
-            Node<L, ?> node = graph.getNodeByLabel(this.label);
-//            if (node.getNodeType().getType() != this) {
-//                throw new
-//            }
-            List<Pipe<L, O>> outgoingPipes = new ArrayList<>();
-            for (L pipe : graph.listChildren(node.getNodeLabel())) {
-                NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
-                outgoingPipes.add((Pipe<L, O>)nodeType.getType());
-            }
-            return outgoingPipes;
-        } catch (NodeLabelDoesNotExistException e) {
-            throw new FilterLabelDoesNotExistException();
+        Node<L, ?> node = graph.getNodeByLabel(this.label);
+        List<Pipe<L, O>> outgoingPipes = new ArrayList<>();
+        for (L pipe : graph.listChildren(node.getNodeLabel())) {
+            NodeType<?> nodeType = graph.getNodeByLabel(pipe).getNodeType();
+            outgoingPipes.add((Pipe<L, O>)nodeType.getType());
         }
+        return outgoingPipes;
+    }
+
+    /**
+     * Checks for a null work object.
+     *
+     * @effects Checks the Representation Invariant is kept.
+     * @return true if there is a null work object.
+     */
+    private boolean IsThereANullWorkObject() {
+        for (O workObject : objectsBuffer) {
+            if (workObject == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -116,6 +152,7 @@ public abstract class Filter<L, O> implements Simulatable<L> {
      */
     private void checkRep() {
         assert (this.label != null) : "Filter label cannot be null";
+        assert (!this.IsThereANullWorkObject()) : "Work object cannot be null";
     }
 
 }

@@ -54,6 +54,8 @@ public class BipartiteGraph<L> {
      * @modifies graph named graphName
      * @effects Adds a black node represented by the String nodeName to the
      * 			graph named graphName.
+     * @throws NodeLabelAlreadyExistsException when node label 'nodeName'
+     *          already exists in graph.
      */
     public void addBlackNode(L nodeName, NodeType<?> nodeType) throws
             NodeLabelAlreadyExistsException
@@ -67,6 +69,8 @@ public class BipartiteGraph<L> {
      * @modifies graph named graphName
      * @effects Adds a white node represented by the String nodeName to the
      * 			graph named graphName.
+     * @throws NodeLabelAlreadyExistsException when node label 'nodeName'
+     *          already exists in graph.
      */
     public void addWhiteNode(L nodeName, NodeType<?> nodeType) throws
             NodeLabelAlreadyExistsException
@@ -81,6 +85,16 @@ public class BipartiteGraph<L> {
      * @effects Adds an edge from the node pLabel to the node cLabel
      * 			in the graph. The new edge's label is the Object
      * 			eLabel.
+     * @throws NullPointerException when either node label 'pLabel', 'cLabel' or
+     *          edge label 'eLabel' is null.
+     * @throws NodeLabelAlreadyExistsException when node label 'pLabel' or
+     *          'cLabel' already exists in graph.
+     * @throws SrcNodeIsSameAsDstNodeException when attempting to connect a node
+     *          to itself, thereby creating a self-loop
+     * @throws EdgeLabelAlreadyExistsException when edge label 'eLabel' already
+     *          exists in graph.
+     * @throws EdgeConnectingSameColorNodesException when attempting to connect
+     *          same color nodes.
      * @param pLabel - parent label.
      * @param cLabel - child label.
      * @param eLabel - edge label.
@@ -138,6 +152,9 @@ public class BipartiteGraph<L> {
      * Gets node by a given label.
      *
      * @return a node object labeled nodeLabel.
+     * @throws NullPointerException when node label 'nodeLabel' is null.
+     * @throws NodeLabelAlreadyExistsException when node label 'nodeLabel'
+     *          already exists in graph.
      */
     public Node<L, ?> getNodeByLabel(L nodeLabel) throws
             NodeLabelDoesNotExistException
@@ -192,6 +209,8 @@ public class BipartiteGraph<L> {
      * List all children of a specific node.
      *
      * @return a list containing all of parentName children in the graph.
+     * @throws NodeLabelDoesNotExistException when node label 'nodeLabel'
+     *          does not exist in graph.
      */
     public List<L> listChildren(L parentName) throws
             NodeLabelDoesNotExistException
@@ -210,6 +229,8 @@ public class BipartiteGraph<L> {
      * List all parents of a specific node.
      *
      * @return a list containing all of childName parents in the graph.
+     * @throws NodeLabelDoesNotExistException when node label 'nodeLabel'
+     *          does not exist in graph.
      */
     public List<L> listParents(L childName) throws
             NodeLabelDoesNotExistException
@@ -228,11 +249,18 @@ public class BipartiteGraph<L> {
      * Gets a node by its parent node and the edge connecting them.
      *
      * @return parent's (pLabel) child, connected by the edge labeled eLabel.
+     * @throws NullPointerException when either node label 'pLabel' or
+     *          edge label 'eLabel' is null.
+     * @throws NodeLabelDoesNotExistException when node label 'pLabel' does not
+     *          exist in graph.
+     * @throws EdgeIsNotConnectedToNodeException when edge label 'eLabel' is not
+     *          a part of node 'pLabel' outgoing edges.
      * @param pLabel - parent label
      * @param eLabel - edge label
      */
     public L getChildByEdgeLabel(L pLabel, L eLabel) throws
-            NodeLabelDoesNotExistException, EdgeIsNotConnectedToNodeException
+            NodeLabelDoesNotExistException,
+            EdgeIsNotConnectedToNodeException
     {
         if (pLabel == null) {
             throw new NullPointerException("Parent node label cannot be null");
@@ -257,11 +285,18 @@ public class BipartiteGraph<L> {
      * Gets a node by its child node and the edge connecting them.
      *
      * @return child's (cLabel) parent, connected by the edge labeled eLabel.
+     * @throws NullPointerException when either node label 'cLabel' or
+     *          edge label 'eLabel' is null.
+     * @throws NodeLabelDoesNotExistException when node label 'cLabel' does not
+     *          exist in graph.
+     * @throws EdgeIsNotConnectedToNodeException when edge label 'eLabel' is not
+     *          a part of node 'cLabel' incoming edges.
      * @param cLabel - child label
      * @param eLabel - edge label
      */
     public L getParentByEdgeLabel(L cLabel, L eLabel) throws
-            NodeLabelDoesNotExistException, EdgeIsNotConnectedToNodeException
+            NodeLabelDoesNotExistException,
+            EdgeIsNotConnectedToNodeException
     {
         if (cLabel == null) {
             throw new NullPointerException("Child node label cannot be null");
@@ -287,6 +322,10 @@ public class BipartiteGraph<L> {
      * @modifies graph named graphName
      * @effects Adds a white node represented by the String nodeName to the
      * 			graph named graphName.
+     * @throws NullPointerException when either node color 'color', node type
+     *          'type' or node label 'label' is null.
+     * @throws NodeLabelAlreadyExistsException when node label 'label'
+     *          already exists in graph.
      */
     private void addNode(NodeColor color, NodeType<?> type, L label)
             throws NodeLabelAlreadyExistsException

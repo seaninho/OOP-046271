@@ -3,10 +3,26 @@ package homework2;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Pipe represents a pipe in a Pipe-Filter system.
+ * A Pipe is an abstract type.
+ * Pipes have a maximum capacity of work object they can hold.
+ * Pipes have FIFO behavior and do not modify the items passing through them.
+ * A pipe has a label of type L, and objects of type O.
+ */
 public abstract class Pipe<L, O> implements Simulatable {
     // Abstraction function:
+    // A pipe has a label of type L, a positive max capacity of work object it
+    // can hold in its objects buffer given in initialization, a current
+    // capacity that is affected from the number of work objects currently in
+    // its buffer and an objects buffer that holds all work objects currently in
+    // the pipe waiting to be moved.
 
     // Representation Invariant:
+    // Pipe label cannot be null.
+    // Pipe's max capacity must be positive, i.e. maxCapacity > 0.
+    // Pipe's objects buffer does not contain a null object.
 
     private L label;
     private int maxCapacity;
@@ -18,6 +34,9 @@ public abstract class Pipe<L, O> implements Simulatable {
      *
      * @modifies this
      * @effects Constructs a pipe.
+     * @throws NullPointerException when pipe label 'label' is null.
+     * @throws PipeMaxCapacityIsNotPositive when pipe's limit capacity is not
+     *          a positive int.
      */
     public Pipe(L label, int limit) throws PipeMaxCapacityIsNotPositive {
         if (label == null) {
@@ -65,6 +84,9 @@ public abstract class Pipe<L, O> implements Simulatable {
      *
      * @modifies this
      * @effects adds a new work object to pipe.
+     * @throws NullPointerException when work object 'object' is null.
+     * @throws PipeMaxCapacityReached when pipe's max capacity is reached and
+     *          pipe can no longer hold work objects in its objects buffer.
      */
     public void addWorkObject(O object) throws PipeMaxCapacityReached {
         checkRep();

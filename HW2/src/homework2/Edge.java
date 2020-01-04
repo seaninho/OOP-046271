@@ -1,10 +1,10 @@
 package homework2;
 
 /**
- * This class represents a directed edge in a Bipartite Graph.
- * There can be more than one edge with the same label in a graph.
- * Each Edge has a label, a source node label and a destination node label
- * of generic type L.
+ * Edge represents a directed edge in a Bipartite Graph, connecting two
+ * different nodes.
+ * Edge label is of type L. There can be more than one edge with the same label
+ * in a Bipartite Graph.
  */
 public class Edge<L> {
     //	 Abstraction function:

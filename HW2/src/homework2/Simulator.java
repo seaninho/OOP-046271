@@ -15,8 +15,11 @@ public class Simulator<L, O> extends BipartiteGraph<L> {
      * @modifies this
      * @effects Adds a new pipe 'pipe' to the simulator.
      */
-    public void addPipe(Pipe<L, O> pipe) {
-
+    public void addPipe(Pipe<L, O> pipe) throws
+            NodeLabelAlreadyExistsException
+    {
+        NodeType<Pipe<L, O>> pipeNode = new NodeType<>(pipe);
+        this.addBlackNode(pipe.getPipeLabel(), pipeNode);
     }
 
     /**
@@ -25,8 +28,11 @@ public class Simulator<L, O> extends BipartiteGraph<L> {
      * @modifies this
      * @effects Adds a new filter 'filter' to the simulator.
      */
-    public void addFilter(Filter<L, O> filter) {
-
+    public void addFilter(Filter<L, O> filter) throws
+            NodeLabelAlreadyExistsException
+    {
+        NodeType<Filter<L, O>> filterNode = new NodeType<>(filter);
+        this.addWhiteNode(filter.getFilterLabel(), filterNode);
     }
 
     /**
