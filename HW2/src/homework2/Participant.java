@@ -19,13 +19,14 @@ public class Participant extends Filter<String, Transaction> {
 
     // Representation Invariant:
     // A valid Filter.
-    // requiredDonation != null
-    // requiredDonation.amount > 0.
+    // requiredDonationProduct != null
+    // requiredDonationAmount >= 0
     // For each transaction in transactionsBuffer:
     //      1. transaction != null
-    //      2. transaction.amount != 0.
+    //      2. transaction.amount > 0.
 
-    private Transaction requiredDonation;
+    private String requiredDonationProduct;
+    private int requiredDonationAmount;
     private int donationAmountAchieved;
     private ArrayList<Transaction> transactionsBuffer;
 
@@ -35,13 +36,14 @@ public class Participant extends Filter<String, Transaction> {
      * @modifies this
      * @effects Constructs a participant.
      */
-    public Participant(String label, Transaction requiredDonation) {
+    public Participant(String label, Transaction requiredDonation)
+    {
         super(label);
         if (requiredDonation == null) {
             throw new NullPointerException("Required donation cannot be null");
         }
-        this.requiredDonation = new Transaction(requiredDonation.getProduct(),
-                requiredDonation.getAmount());
+        this.requiredDonationProduct = requiredDonation.getProduct();
+        this.requiredDonationAmount=  requiredDonation.getAmount();
         this.transactionsBuffer = new ArrayList<>();
     }
 
@@ -52,7 +54,8 @@ public class Participant extends Filter<String, Transaction> {
      * @effects Constructs a participant with given Transactions.
      */
     public Participant(String label, Transaction requiredDonation,
-                       ArrayList<Transaction> existTransactions) {
+                       ArrayList<Transaction> existTransactions)
+    {
         super(label);
         if (requiredDonation == null) {
             throw new NullPointerException("Required donation cannot be null");
@@ -60,8 +63,8 @@ public class Participant extends Filter<String, Transaction> {
         if (existTransactions == null) {
             throw new NullPointerException("Existing donations cannot be null");
         }
-        this.requiredDonation = new Transaction(requiredDonation.getProduct(),
-                requiredDonation.getAmount());
+        this.requiredDonationProduct = requiredDonation.getProduct();
+        this.requiredDonationAmount=  requiredDonation.getAmount();
         this.donationAmountAchieved = 0;
         for (Transaction transaction : existTransactions) {
             this.addWorkObject(transaction);
@@ -141,21 +144,19 @@ public class Participant extends Filter<String, Transaction> {
      */
     private void processTransaction(Transaction transaction) {
         // Transaction is needed
-        if (this.requiredDonation.getAmount() > transaction.getAmount())
+        if (this.requiredDonationAmount > transaction.getAmount())
         {
             int newAmount =
-                    this.requiredDonation.getAmount() - transaction.getAmount();
+                    this.requiredDonationAmount - transaction.getAmount();
             this.donationAmountAchieved = transaction.getAmount();
-            this.requiredDonation =
-                    new Transaction(transaction.getProduct(), newAmount);
+            this.requiredDonationAmount = newAmount;
         }
         // Transaction is not needed
         else {
             int newAmount =
-                    transaction.getAmount() - this.requiredDonation.getAmount();
-            this.donationAmountAchieved = this.requiredDonation.getAmount();
-            this.requiredDonation =
-                    new Transaction(transaction.getProduct(), 0);
+                    transaction.getAmount() - this.requiredDonationAmount;
+            this.donationAmountAchieved = this.requiredDonationAmount;
+            this.requiredDonationProduct = null;
             if (newAmount > 0) {
                 Transaction newTransaction =
                         new Transaction(transaction.getProduct(), newAmount);
@@ -173,7 +174,7 @@ public class Participant extends Filter<String, Transaction> {
     private void processTransactionsBuffer() {
         for (Transaction transaction : transactionsBuffer) {
             String product = transaction.getProduct();
-            if (this.requiredDonation.getProduct().equals(product))
+            if (this.requiredDonationProduct.equals(product))
             {
                 this.processTransaction(transaction);
             } else {
@@ -185,7 +186,16 @@ public class Participant extends Filter<String, Transaction> {
         transactionsBuffer.clear();
     }
 
-//    private void checkRep {
-//
-//    }
+    private void checkRep {
+          assert (this.requiredDonationProduct != null):
+                  "Required product cannot be null";
+        assert (this.requiredDonationAmount >= 0):
+                "Required donation amount cannot be negative";
+        for (Transaction transaction: transactionsBuffer) {
+            assert (transaction != null) : "transaction in buffer cannot " +
+                    "be null";
+            assert (transaction.getAmount() > 0) : "donation amount must " +
+                    "be positive";
+        }
+    }
 }
