@@ -129,6 +129,20 @@ public abstract class Pipe<L, O> implements Simulatable<L> {
     }
 
     /**
+     * Check objects buffer representation invariant.
+     *
+     * @effects Checks the Representation Invariant is kept
+     */
+    private boolean checkObjectsBufferRepInv() {
+        for (O object : this.objectsBuffer) {
+            if (object == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Check representation.
      *
      * @effects Checks the Representation Invariant is kept
@@ -136,6 +150,8 @@ public abstract class Pipe<L, O> implements Simulatable<L> {
     private void checkRep() {
         assert (this.label != null) : "Pipe label cannot be null";
         assert (this.maxCapacity > 0) : "Pipe capacity limit is not positive";
+        assert (this.checkObjectsBufferRepInv()) :
+                "Objects buffer cannot contain a null object";
     }
 
 }
