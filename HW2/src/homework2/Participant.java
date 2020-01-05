@@ -154,7 +154,8 @@ public class Participant extends Filter<String, Transaction> {
             int newAmount =
                     transaction.getAmount() - this.requiredDonation.getAmount();
             this.donationAmountAchieved = this.requiredDonation.getAmount();
-            this.requiredDonation = null;
+            this.requiredDonation =
+                    new Transaction(transaction.getProduct(), 0);
             if (newAmount > 0) {
                 Transaction newTransaction =
                         new Transaction(transaction.getProduct(), newAmount);
