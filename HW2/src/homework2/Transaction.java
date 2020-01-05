@@ -37,7 +37,7 @@ public class Transaction {
     
     @Override
     public String toString() {
-        return "Transaction: " + this.hashCode() + " Product: " + product + " Amount: " + amount;
+        return "Transaction: " + " Product: " + product + " Amount: " + amount;
     }
     
     

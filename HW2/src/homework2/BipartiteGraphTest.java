@@ -461,6 +461,8 @@ public class BipartiteGraphTest {
         //create a graph
         BipartiteGraph<String> graph = new BipartiteGraph<>();
 
+        assertEquals("wrong size", 0, graph.getGraphSize());
+
         //add a white node
         graph.addWhiteNode("n1", new NodeType<>("n1"));
         //add a black node

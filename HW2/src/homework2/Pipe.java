@@ -11,7 +11,7 @@ import java.util.List;
  * Pipes have FIFO behavior and do not modify the items passing through them.
  * A pipe has a label of type L, and objects of type O.
  */
-public abstract class Pipe<L, O> implements Simulatable {
+public abstract class Pipe<L, O> implements Simulatable<L> {
     // Abstraction function:
     // A pipe has a label of type L, a positive max capacity of work object it
     // can hold in its objects buffer given in initialization, a current
@@ -122,7 +122,11 @@ public abstract class Pipe<L, O> implements Simulatable {
      * @effects Simulates this pipe in a system modeled by graph
      */
     @Override
-    public abstract void simulate(BipartiteGraph graph);
+    public abstract void simulate(BipartiteGraph<L> graph);
+
+    public ArrayList<O> getWorkObjects(){
+        return new ArrayList<O>(objectsBuffer);
+    }
 
     /**
      * Check representation.
