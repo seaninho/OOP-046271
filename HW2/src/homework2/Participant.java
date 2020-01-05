@@ -190,6 +190,11 @@ public class Participant extends Filter<String, Transaction> {
         transactionsBuffer.clear();
     }
 
+    /**
+     * Check representation.
+     *
+     * @effects Checks the Representation Invariant is kept
+     */
     private void checkRep (){
           assert (this.requiredDonationProduct != null):
                   "Required product cannot be null";
