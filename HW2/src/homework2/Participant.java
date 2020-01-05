@@ -45,6 +45,7 @@ public class Participant extends Filter<String, Transaction> {
         this.requiredDonationProduct = requiredDonation.getProduct();
         this.requiredDonationAmount=  requiredDonation.getAmount();
         this.transactionsBuffer = new ArrayList<>();
+        this.checkRep();
     }
 
     /**
@@ -70,6 +71,7 @@ public class Participant extends Filter<String, Transaction> {
             this.addWorkObject(transaction);
         }
         this.transactionsBuffer = new ArrayList<Transaction>();
+        this.checkRep();
     }
 
     /**
@@ -94,6 +96,7 @@ public class Participant extends Filter<String, Transaction> {
             throw new NullPointerException("Transaction cannot be null");
         }
         this.transactionsBuffer.add(transaction);
+        this.checkRep();
     }
 
     /**
@@ -134,6 +137,7 @@ public class Participant extends Filter<String, Transaction> {
         }
 
         this.processTransactionsBuffer();
+        this.checkRep();
     }
 
     /**
@@ -155,8 +159,8 @@ public class Participant extends Filter<String, Transaction> {
         else {
             int newAmount =
                     transaction.getAmount() - this.requiredDonationAmount;
-            this.donationAmountAchieved = this.requiredDonationAmount;
-            this.requiredDonationProduct = null;
+            this.donationAmountAchieved += this.requiredDonationAmount;
+            this.requiredDonationAmount = 0;
             if (newAmount > 0) {
                 Transaction newTransaction =
                         new Transaction(transaction.getProduct(), newAmount);
@@ -186,7 +190,7 @@ public class Participant extends Filter<String, Transaction> {
         transactionsBuffer.clear();
     }
 
-    private void checkRep {
+    private void checkRep (){
           assert (this.requiredDonationProduct != null):
                   "Required product cannot be null";
         assert (this.requiredDonationAmount >= 0):
