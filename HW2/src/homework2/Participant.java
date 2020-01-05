@@ -1,11 +1,11 @@
 package homework2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Participant represents a participant in a Participant-Channel system.
- * A participant is a player in the game.
- * A participant is an extend of Filter.
+ * A participant extends Filter.
  */
 public class Participant extends Filter<String, Transaction> {
     // Abstraction function:
@@ -19,14 +19,15 @@ public class Participant extends Filter<String, Transaction> {
 
     // Representation Invariant:
     // A valid Filter.
-    // requiredDonation cannot be null and requiredDonation.amount > 0.
-    // StepBuffer does not contain a null object or a transaction amount of 0.
+    // requiredDonation != null
+    // requiredDonation.amount > 0.
+    // For each transaction in transactionsBuffer:
+    //      1. transaction != null
+    //      2. transaction.amount != 0.
 
-    Transaction requiredDonation;
-    private int DonationAmountAchieved;
-    ArrayList<Transaction> StepBuffer;
-
-
+    private Transaction requiredDonation;
+    private int donationAmountAchieved;
+    private ArrayList<Transaction> transactionsBuffer;
 
     /**
      * Participant constructor.
@@ -36,9 +37,12 @@ public class Participant extends Filter<String, Transaction> {
      */
     public Participant(String label, Transaction requiredDonation) {
         super(label);
+        if (requiredDonation == null) {
+            throw new NullPointerException("Required donation cannot be null");
+        }
         this.requiredDonation = new Transaction(requiredDonation.getProduct(),
                 requiredDonation.getAmount());
-        this.StepBuffer = new ArrayList<>();
+        this.transactionsBuffer = new ArrayList<>();
     }
 
     /**
@@ -50,13 +54,29 @@ public class Participant extends Filter<String, Transaction> {
     public Participant(String label, Transaction requiredDonation,
                        ArrayList<Transaction> existTransactions) {
         super(label);
+        if (requiredDonation == null) {
+            throw new NullPointerException("Required donation cannot be null");
+        }
+        if (existTransactions == null) {
+            throw new NullPointerException("Existing donations cannot be null");
+        }
         this.requiredDonation = new Transaction(requiredDonation.getProduct(),
                 requiredDonation.getAmount());
-        this.DonationAmountAchieved = 0;
+        this.donationAmountAchieved = 0;
         for (Transaction transaction : existTransactions) {
             this.addWorkObject(transaction);
         }
-        this.StepBuffer = new ArrayList<Transaction>();
+        this.transactionsBuffer = new ArrayList<Transaction>();
+    }
+
+    /**
+     * Returns the amount of required transaction
+     * the participant got.
+     *
+     * @return the donation amount achieved.
+     */
+    public int getDonationAmountAchieved() {
+        return this.donationAmountAchieved;
     }
 
     /**
@@ -66,98 +86,105 @@ public class Participant extends Filter<String, Transaction> {
      * @param transaction Received transaction
      * @modifay this
      */
-    void addToStepBuffer(Transaction transaction){
-        this.StepBuffer.add(transaction);
+    public void addTransaction(Transaction transaction){
+        if (transaction == null) {
+            throw new NullPointerException("Transaction cannot be null");
+        }
+        this.transactionsBuffer.add(transaction);
     }
 
     /**
-     * Load transaction of current step to ObjectBuffer
-     * @modifay this
+     * Simulates the participant step.
+     *
+     * @modifies this, graph
+     * @effects Simulates a step of this participant.
      */
-    void loadStepToBuffer(){
-        if (this.requiredDonation == null) {
+    @Override
+    public void simulate(BipartiteGraph graph) {
+        if (this.getFilterObjectsBuffer().size() == 0) { // No donations exist
+            this.processTransactionsBuffer();
             return;
         }
-        for (Transaction transaction : StepBuffer) {
-            if (this.requiredDonation.getProduct().equals(transaction.getProduct()))
-            {
-                /* If the transaction is needed */
-                if (this.requiredDonation.getAmount() > transaction.getAmount())
-                {
-                    int newAmount = this.requiredDonation.getAmount() -
-                            transaction.getAmount();
-                    Transaction newTransaction = new
-                            Transaction(transaction.getProduct(), newAmount);
-                    this.requiredDonation = newTransaction;
-                    this.DonationAmountAchieved =
-                            transaction.getAmount();
-                } else {
-                    int newAmount = transaction.getAmount() -
-                            this.requiredDonation.getAmount();
-                    DonationAmountAchieved =
-                            this.requiredDonation.getAmount();
-                    this.requiredDonation = null;
-                    if (newAmount > 0) {
-                        Transaction newTransaction = new Transaction(
-                                transaction.getProduct(), newAmount);
-                        this.addWorkObject(newTransaction);
-                    }
-                }
-            } else {
-                this.addWorkObject(transaction);
-            }
 
-        }
-        StepBuffer.clear();
-    }
-
-    /**
-     * makeDonationSimulation simulate participants step of transfer a transaction.
-     * @modifay this
-     */
-    private void makeDonationSimulation (BipartiteGraph graph) {
-        Node<String, Transaction> currentNode;
         try {
-            currentNode = graph.getNodeByLabel(this.getFilterLabel());
-            ArrayList<String> childrenList;
-            childrenList = (ArrayList<String>) currentNode.getNodeChildren();
+            Node<String, Transaction> node = (Node<String, Transaction>)
+                    graph.getNodeByLabel(this.getFilterLabel());
             Transaction transaction = this.removeWorkObject();
             boolean transactionMovedToChannel = false;
-            for (String nodeLabel : childrenList) {
+            List<String> childrenList = node.getNodeChildren();
+            for (String nLabel : childrenList) {
                 Channel channel = (Channel)
-                        graph.getNodeByLabel(nodeLabel).getNodeType().getType();
+                        graph.getNodeByLabel(nLabel).getNodeType().getType();
                 try {
                     channel.addWorkObject(transaction);
                     transactionMovedToChannel = true;
                 } catch (PipeMaxCapacityReached e) {
-                    /* Chanel is full, try next child */
+                    // Channel is full, try next child
                 }
             }
             if (!transactionMovedToChannel) {
                 this.addWorkObject(transaction);
             }
         } catch (NodeLabelDoesNotExistException e) {
+            // Participant node label does not exist
+            // Should not happen since participant is a node in the graph
+        }
+
+        this.processTransactionsBuffer();
+    }
+
+    /**
+     * Processes transaction.
+     *
+     * @modifies this
+     * @effects Determines if transaction is needed and operates accordingly.
+     */
+    private void processTransaction(Transaction transaction) {
+        // Transaction is needed
+        if (this.requiredDonation.getAmount() > transaction.getAmount())
+        {
+            int newAmount =
+                    this.requiredDonation.getAmount() - transaction.getAmount();
+            this.donationAmountAchieved = transaction.getAmount();
+            this.requiredDonation =
+                    new Transaction(transaction.getProduct(), newAmount);
+        }
+        // Transaction is not needed
+        else {
+            int newAmount =
+                    transaction.getAmount() - this.requiredDonation.getAmount();
+            this.donationAmountAchieved = this.requiredDonation.getAmount();
+            this.requiredDonation = null;
+            if (newAmount > 0) {
+                Transaction newTransaction =
+                        new Transaction(transaction.getProduct(), newAmount);
+                this.addWorkObject(newTransaction);
+            }
         }
     }
 
     /**
-     * getDonationAmountAchieved returns the amount of required transaction
-     * the participant got.
+     * Processes transactions in transactions buffer.
+     *
+     * @modifies this
+     * @effects Goes through transactions buffer and processes each transaction.
      */
-    public int getDonationAmountAchieved () {
-        return this.DonationAmountAchieved;
+    private void processTransactionsBuffer() {
+        for (Transaction transaction : transactionsBuffer) {
+            String product = transaction.getProduct();
+            if (this.requiredDonation.getProduct().equals(product))
+            {
+                this.processTransaction(transaction);
+            } else {
+                this.addWorkObject(transaction);
+            }
+
+        }
+
+        transactionsBuffer.clear();
     }
 
-    /**
-     * Simulates the participant step
-     * @modifies this, graph
-     * @effects Simulates this participant donated and received transaction
-     */
-    @Override
-    public void simulate(BipartiteGraph graph) {
-        if(this.getFilterObjectsBuffer().size() != 0) {
-            makeDonationSimulation(graph);
-        }
-        this.loadStepToBuffer();
-    }
+//    private void checkRep {
+//
+//    }
 }

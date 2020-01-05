@@ -1,6 +1,6 @@
 package homework2;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -22,40 +22,44 @@ public class Channel extends Pipe<String, Transaction> {
      * @modifies this
      * @effects Constructs a channel.
      */
-    public Channel(String label, int limit)throws PipeMaxCapacityIsNotPositive {
+    public Channel(String label, int limit) throws
+            PipeMaxCapacityIsNotPositive
+    {
         super(label, limit);
     }
 
     /**
+     * Simulates the channel step.
+     *
      * @modifies this, graph
-     * @effects Simulates this channel in the graph
+     * @effects Simulates a step of this channel.
      */
     @Override
     public void simulate(BipartiteGraph<String> graph) {
-        if (this.getWorkObjects().size() == 0) {
-            return; // No donation exist
+        if (this.getWorkObjects().size() == 0) { // No donations exist
+            return;
         }
+
         try {
             Node<String, Transaction> node = (Node<String, Transaction>)
                     graph.getNodeByLabel(this.getPipeLabel());
             // Get participant to forward transaction to
-            ArrayList<String> children = (ArrayList<String>)
-                    node.getNodeChildren();
+            List<String> children = node.getNodeChildren();
             if (children.size() == 0) {
                 return;
             }
             // Forward transaction to random participant
             Random random = new Random();
-            String participantName =
-                    (String)children.get(random.nextInt(children.size()));
+            String pName = children.get(random.nextInt(children.size()));
             Participant participant = (Participant)
-                    graph.getNodeByLabel(participantName).getNodeType().getType();
+                    graph.getNodeByLabel(pName).getNodeType().getType();
 
             // Deliver object to participant
             Transaction transaction = this.removeWorkObject();
-            participant.addToStepBuffer(transaction);
+            participant.addTransaction(transaction);
         } catch (NodeLabelDoesNotExistException e){
-            System.out.println("simulate channel exception");
+            // Channel node label does not exist
+            // Should not happen since channel is a node in the graph
         }
     }
 }

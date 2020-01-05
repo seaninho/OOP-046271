@@ -33,8 +33,7 @@ public class SimulatorTest {
         driver.addEdge("sim1", "c1", "p1", "edge");
 
         //check storage amount
-        assertTrue("wrong storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
+        assertEquals("wrong storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
     }
 
     @Test(expected = NullPointerException.class)
@@ -66,34 +65,38 @@ public class SimulatorTest {
     }
 
     @Test(expected = EdgeLabelAlreadyExistsException.class)
-    public void testAddEdgeWithLabelAlreadyExists() throws NodeLabelDoesNotExistException,
+    public void testAddEdgeWithLabelAlreadyExists() throws
+            NodeLabelDoesNotExistException,
             SrcNodeIsSameAsDstNodeException,
             EdgeLabelAlreadyExistsException,
             EdgeConnectingSameColorNodesException,
             PipeMaxCapacityIsNotPositive,
-            NodeLabelAlreadyExistsException{
+            NodeLabelAlreadyExistsException
+    {
         SimulatorTestDriver driver = new SimulatorTestDriver();
 
         //create a graph
         driver.createSimulator("sim1");
 
         //add a pair of nodes
-        driver.addChannel("sim1", "c1", 2);
+        driver.addChannel("sim1", "ch1", 2);
         String product = "paper";
         driver.addParticipant("sim1", "p1", product, 300);
 
         //add two edges with the same label
-        driver.addEdge("sim1", "c1", "p1", "edge");
-        driver.addEdge("sim1", "c1", "p1", "edge");
+        driver.addEdge("sim1", "ch1", "p1", "edge");
+        driver.addEdge("sim1", "ch1", "p1", "edge");
     }
 
     @Test(expected = NodeLabelDoesNotExistException.class)
-    public void testAddEdgeNodeNotExist() throws NodeLabelDoesNotExistException,
+    public void testAddEdgeNodeNotExist() throws
+            NodeLabelDoesNotExistException,
             SrcNodeIsSameAsDstNodeException,
             EdgeLabelAlreadyExistsException,
             EdgeConnectingSameColorNodesException,
             PipeMaxCapacityIsNotPositive,
-            NodeLabelAlreadyExistsException{
+            NodeLabelAlreadyExistsException
+    {
         SimulatorTestDriver driver = new SimulatorTestDriver();
 
         //create a graph
@@ -117,7 +120,8 @@ public class SimulatorTest {
             NodeLabelDoesNotExistException,
             PipeMaxCapacityIsNotPositive,
             NodeLabelAlreadyExistsException,
-            PipeMaxCapacityReached {
+            PipeMaxCapacityReached
+    {
         SimulatorTestDriver driver = new SimulatorTestDriver();
 
         //create a graph
@@ -135,7 +139,8 @@ public class SimulatorTest {
 
     @Test(expected = NodeLabelDoesNotExistException.class)
     public void listContentsNodeLabelNotExist() throws
-            NodeLabelDoesNotExistException {
+            NodeLabelDoesNotExistException
+    {
         SimulatorTestDriver driver = new SimulatorTestDriver();
         //create a graph
         driver.createSimulator("sim1");
@@ -218,10 +223,8 @@ public class SimulatorTest {
         driver.sendTransaction("sim2", "c1", transaction1);
 
         //check storage amount
-        assertTrue("wrong storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue("wrong recycle amount", 0 ==
-                driver.getParticipantToRecycleAmount("sim1", "p1"));
+        assertEquals("wrong storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong recycle amount", 0, driver.getParticipantToRecycleAmount("sim1", "p1"), 0.0);
 
         driver.printAllEdges("sim1");
         driver.printAllEdges("sim2");
@@ -234,20 +237,16 @@ public class SimulatorTest {
         driver.simulate("sim2");
         assertEquals("wrong transactions", "",
                 driver.listContents ("sim2", "c1"));
-        assertTrue( "wrong participant storage amount", 350 ==
-                driver.getParticipantStorageAmount("sim2", "p1"));
-        assertTrue( "wrong participant recycle amount", 50 ==
-                driver.getParticipantToRecycleAmount("sim2", "p1"));
+        assertEquals("wrong participant storage amount", 350, driver.getParticipantStorageAmount("sim2", "p1"), 0.0);
+        assertEquals("wrong participant recycle amount", 50, driver.getParticipantToRecycleAmount("sim2", "p1"), 0.0);
 
         // simulate sim2 - second step
         driver.simulate("sim2");
         assertEquals("wrong transactions", "Transaction: " +
                         " Product: paper Amount: 350",
                 driver.listContents ("sim2", "c1"));
-        assertTrue( "wrong participant storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim2", "p1"));
-        assertTrue( "wrong participant recycle amount", 50 ==
-                driver.getParticipantToRecycleAmount("sim2", "p1"));
+        assertEquals("wrong participant storage amount", 0, driver.getParticipantStorageAmount("sim2", "p1"), 0.0);
+        assertEquals("wrong participant recycle amount", 50, driver.getParticipantToRecycleAmount("sim2", "p1"), 0.0);
 
     }
 
@@ -286,45 +285,36 @@ public class SimulatorTest {
         driver.addEdge("sim1", "c1", "p2", "edge1");
 
         Transaction transaction1 = new Transaction(product1, 400);
-        Transaction transaction2 = new Transaction(product2, 500);
         // add transactions - sim1
         driver.sendTransaction("sim1", "c2", transaction1);
 
 
         //check storage amount
-        assertTrue("wrong storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue("wrong recycle amount", 0 ==
-                driver.getParticipantToRecycleAmount("sim1", "p1"));
+        assertEquals("wrong storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong recycle amount", 0, driver.getParticipantToRecycleAmount("sim1", "p1"), 0.0);
         assertEquals("wrong transactions", "Transaction: " +
                         " Product: paper Amount: 400",
                 driver.listContents ("sim1", "c2"));
 
         // simulate sim1 - first step
         driver.simulate("sim1");
-        assertTrue( "wrong participant storage amount", 400 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue( "wrong participant recycle amount", 0 ==
-                driver.getParticipantToRecycleAmount("sim1", "p1"));
+        assertEquals("wrong participant storage amount", 400, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong participant recycle amount", 0, driver.getParticipantToRecycleAmount("sim1", "p1"), 0.0);
 
         // simulate sim2 - second step
         driver.simulate("sim1");
         assertEquals("wrong transactions", "Transaction: " +
                         " Product: paper Amount: 400",
                 driver.listContents ("sim1", "c1"));
-        assertTrue( "wrong participant storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
+        assertEquals("wrong participant storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
 
         // simulate sim2 - Step three
         driver.simulate("sim1");
         assertEquals("wrong transactions", "",
                 driver.listContents ("sim1", "c1"));
-        assertTrue( "wrong participant storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue( "wrong participant storage amount", 100 ==
-                driver.getParticipantStorageAmount("sim1", "p2"));
-        assertTrue( "wrong participant recycle amount", 300 ==
-                driver.getParticipantToRecycleAmount("sim1", "p2"));
+        assertEquals("wrong participant storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong participant storage amount", 100, driver.getParticipantStorageAmount("sim1", "p2"), 0.0);
+        assertEquals("wrong participant recycle amount", 300, driver.getParticipantToRecycleAmount("sim1", "p2"), 0.0);
     }
 
     @Test()
@@ -369,20 +359,16 @@ public class SimulatorTest {
         driver.sendTransaction("sim1", "c2", transaction1);
 
         //check storage amount
-        assertTrue("wrong storage amount", 0 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue("wrong recycle amount", 0 ==
-                driver.getParticipantToRecycleAmount("sim1", "p1"));
+        assertEquals("wrong storage amount", 0, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong recycle amount", 0, driver.getParticipantToRecycleAmount("sim1", "p1"), 0.0);
         assertEquals("wrong transactions", "Transaction: " +
                         " Product: paper Amount: 300",
                 driver.listContents ("sim1", "c2"));
 
         // simulate sim1 - first step
         driver.simulate("sim1");
-        assertTrue( "wrong participant storage amount", 300 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
-        assertTrue( "wrong participant recycle amount", 0 ==
-                driver.getParticipantToRecycleAmount("sim1", "p1"));
+        assertEquals("wrong participant storage amount", 300, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
+        assertEquals("wrong participant recycle amount", 0, driver.getParticipantToRecycleAmount("sim1", "p1"), 0.0);
 
         // add transaction - sim1
         driver.sendTransaction("sim1", "c1", transaction2);
@@ -391,8 +377,7 @@ public class SimulatorTest {
         driver.simulate("sim1");
         assertEquals("wrong transactions", "",
                 driver.listContents ("sim1", "c2"));
-        assertTrue( "wrong participant storage amount", 300 ==
-                driver.getParticipantStorageAmount("sim1", "p1"));
+        assertEquals("wrong participant storage amount", 300, driver.getParticipantStorageAmount("sim1", "p1"), 0.0);
         assertEquals("wrong transactions", "",
                 driver.listContents ("sim1", "c2"));
         assertEquals("wrong transactions", "Transaction: " +
