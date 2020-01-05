@@ -5,11 +5,11 @@ import java.util.ArrayList;
 /**
  * Participant represents a participant in a Participant-Channel system.
  * A participant is a player in the game.
- * A participant is an extend to Filter.
+ * A participant is an extend of Filter.
  */
 public class Participant extends Filter<String, Transaction> {
     // Abstraction function:
-    // A participant has a String to represent name and an buffer of Transaction
+    // A participant has a String to represent name and a buffer of Transaction
     // that holds all the transaction that the participant store to donate.
     // A participant has a Transaction called requiredDonation, it is the
     // transaction the participant waiting for, and DonationAmountAchieved is .
@@ -18,6 +18,7 @@ public class Participant extends Filter<String, Transaction> {
     // current simulation step.
 
     // Representation Invariant:
+    // A valid Filter.
     // requiredDonation cannot be null and requiredDonation.amount > 0.
     // StepBuffer does not contain a null object or a transaction amount of 0.
 
@@ -42,9 +43,9 @@ public class Participant extends Filter<String, Transaction> {
 
     /**
      * Participant constructor.
-     *
+     * @param existTransactions is given Transactions to add to storage
      * @modifies this
-     * @effects Constructs a participant with exist Transactions.
+     * @effects Constructs a participant with given Transactions.
      */
     public Participant(String label, Transaction requiredDonation,
                        ArrayList<Transaction> existTransactions) {
@@ -105,7 +106,9 @@ public class Participant extends Filter<String, Transaction> {
             } else {
                 this.addWorkObject(transaction);
             }
+
         }
+        StepBuffer.clear();
     }
 
     /**
