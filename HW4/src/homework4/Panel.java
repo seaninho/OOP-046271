@@ -12,7 +12,10 @@ public class Panel {
     //	 A panel is represented by its location and its has color.
     //
     //	 Representation Invariant:
-    //	 1 <= panel number <= 25 .
+    //	 location != null && color != null
+    //	 1 <= location.x <=5
+    //   1 <= location.y <=5
+
 
     private Point location;
     private Color color;
@@ -28,6 +31,17 @@ public class Panel {
     public Panel(Point location, Color color) {
         this.color = color;
         this.location = location;
+        checkRep();
+    }
+
+    /**
+     * Set panel color.
+     *
+     * @modifies this
+     * @effects change the panel color to a new color.
+     */
+    public void setPanelColor (Color color) {
+        this.color = color;
         checkRep();
     }
 
