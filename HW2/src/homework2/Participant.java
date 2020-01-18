@@ -196,7 +196,7 @@ public class Participant extends Filter<String, Transaction> {
      * @effects Checks the Representation Invariant is kept
      */
     private void checkRep (){
-          assert (this.requiredDonationProduct != null):
+        assert (this.requiredDonationProduct != null):
                   "Required product cannot be null";
         assert (this.requiredDonationAmount >= 0):
                 "Required donation amount cannot be negative";
