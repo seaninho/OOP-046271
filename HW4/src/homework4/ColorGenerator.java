@@ -6,6 +6,7 @@ package homework4;
 public class ColorGenerator {
     //	 Abstraction function:
     //	 A ColorGenerator is represented by its color and changing method.
+    //   It changes the color each 2 seconds.
     //
     //	 Representation Invariant:
     //	 The color update method is one of four methods:
@@ -13,4 +14,6 @@ public class ColorGenerator {
     //  2) Change by columns
     //  3) Update in two steps
     //  4) Update randomly
+
+
 }
