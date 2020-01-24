@@ -16,9 +16,10 @@ public class Panel {
     //	 1 <= location.x <=5
     //   1 <= location.y <=5
 
-
+    private static final int size = 1;
     private Point location;
     private Color color;
+
 
     /**
      * Panel constructor.
