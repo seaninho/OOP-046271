@@ -2,7 +2,9 @@ package homework4;
 
 import javafx.beans.Observable;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observer;
 import javax.swing.Timer;
@@ -27,13 +29,23 @@ public interface observerUpdateMethod {
 class IncreaseOrder implements observerUpdateMethod {
 
     @Override
-    public <E extends Observable,T extends Observer> void updateObservers(E colorGenerator, List<T> observers) {
+    public <E extends Observable,T extends Observer> void observerUpdateMethod(E colorGenerator, List<T> observers) {
         int delay = DELAY;
         int period = PERIOD;
         // enable animation timer (ticks 25 times per second)
         Timer timer = new Timer(delay, new ActionListener() {
-
+            public void actionPerformed(ActionEvent evt) {
+                Iterator<T> observersIterator = observers.iterator();
+                while (observersIterator.hasNext())
+                {
+                    T curr_item = (T) observersIterator.next();
+                    curr_item.
+                }
+            }
         });
         timer.start();
     }
 }
+
+
+
