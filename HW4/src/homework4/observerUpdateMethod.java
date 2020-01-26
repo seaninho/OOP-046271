@@ -28,7 +28,7 @@ public class observerUpdateOrder extends Observable {
 
 
     static final int PERIOD = 40; // 40 milliseconds
-    private observerUpdateOrder order;
+    private PanelOrderNotifier order;
     private Vector<Observer> observers;
 
     /**
@@ -40,9 +40,10 @@ public class observerUpdateOrder extends Observable {
      *
      */
     public observerUpdateOrder() {
-        super();
+        checkRep();
         order = new PanelInOrderNotifier();
         observers = new Vector<>();
+        checkRep();
     }
 
     /**
@@ -77,6 +78,7 @@ public class observerUpdateOrder extends Observable {
      */
     public void setOrder(observerUpdateOrder newOrder) {
         order = newOrder;
+        checkRep();
     }
 
     /**
@@ -113,7 +115,7 @@ public class observerUpdateOrder extends Observable {
      */
     private boolean isStrategyValid() {
         return (order.getClass() == PanelInOrderNotifier.class ||
-                order.getClass() == PanelInOrderNotifier.class ||
+                order.getClass() == PanelColsNotifier.class ||
                 order.getClass() == PanelOddEvenNotifier.class ||
                 order.getClass() == PanelRandOrderNotifier.class);
     }

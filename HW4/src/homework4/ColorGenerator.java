@@ -1,8 +1,6 @@
 package homework4;
 
 import java.awt.*;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -11,12 +9,12 @@ import java.util.Random;
 public class ColorGenerator extends observerUpdateOrder {
     //	 Abstraction function:
     //	 A ColorGenerator is a singleton represented by its color (currentColor).
-    //	 The color initialized to white.
-    //   It changes the color each 2 seconds.
+    //	 The color initialized to Pink.
     //
     //	 Representation Invariant:
     //   The color is valid ( 0 <= r,g,b <= 255)
 
+    private static final int MIN_COLOR = 0;
     private static final int MAX_COLOR = 255;
     static final int DELAY = 40;
     private Color currentColor;
@@ -46,37 +44,6 @@ public class ColorGenerator extends observerUpdateOrder {
     }
 
     /**
-     * @return the currentColor;
-     * @effect Returns the current color
-     */
-    public Color getColor() {
-        return currentColor;
-    }
-
-    /**
-     * @effects Change color update method.
-     * @modifies this, the updating method
-     * @param newMethod the new update method
-     */
-    public void changeUpdateMethod (observerUpdateMethod newMethod) {
-        checkRep();
-        this.updateMethod = newMethod;
-        checkRep();
-    }
-
-    /**
-     * @requires legal panel
-     * @effects Adds a new panel.
-     * @modifies this
-     * @param panel the new panel
-     */
-    public void addPanel(Panel panel) {
-        checkRep();
-        observers.add(panel);
-        checkRep();
-    }
-
-    /**
      * @effects Changes the current color
      */
     public void setColor() {
@@ -92,13 +59,25 @@ public class ColorGenerator extends observerUpdateOrder {
     }
 
     /**
+     * @return the currentColor;
+     * @effect Returns the current color
+     */
+    public Color getColor() {
+        return currentColor;
+    }
+
+
+    /**
      * @effects Checks if the color is valid according to Representation Invariant.
      * @return true, if the color valid. false otherwise.
      */
     private boolean isColorValid() {
-        return ((currentColor.getBlue() >= 0 && currentColor.getBlue() <= 255)
-             && (currentColor.getGreen() >= 0 && currentColor.getGreen() <= 255)
-             && (currentColor.getRed() >= 0 && currentColor.getRed() <= 255));
+        return ((currentColor.getBlue() >= MIN_COLOR &&
+                currentColor.getBlue() <= MAX_COLOR)
+             && (currentColor.getGreen() >= MIN_COLOR &&
+                currentColor.getGreen() <= MAX_COLOR)
+             && (currentColor.getRed() >= MIN_COLOR &&
+                currentColor.getRed() <= MAX_COLOR));
     }
 
     /**
