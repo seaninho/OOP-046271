@@ -18,7 +18,7 @@ public class Billboard extends JFrame {
     //	 (NUM_OF_HEIGHT_PANELS X NUM_OF_WIDTH_PANELS) grid.
     //
     //	 Representation Invariant:
-    //	 there are 25 panels.
+    //	 there are BOARDSIZE panels.
 
 
     private static final int BOUND_OF_UPDATE_ORDERS = 4;
@@ -50,7 +50,7 @@ public class Billboard extends JFrame {
         billboard.setLayout(new
                 GridLayout(NUM_OF_WIDTH_PANELS, NUM_OF_HEIGHT_PANELS));
 
-        for(int i=0; i<BOARDSIZE; i++) {
+        for(int i = 0; i < BOARDSIZE; i++) {
             panels[i] = new Panel();
             colorGenerator.addObserver(panels[i]);
             billboard.add(panels[i]);
@@ -64,16 +64,16 @@ public class Billboard extends JFrame {
                     Random newOrder = new Random();
                     switch (newOrder.nextInt(BOUND_OF_UPDATE_ORDERS)) {
                         case 0:
-                            colorGenerator.setOrder(new PanelAscOrderNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelAscOrderNotifier());
                             break;
                         case 1:
-                            colorGenerator.setOrder(new PanelColsNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelColsNotifier());
                             break;
                         case 2:
-                            colorGenerator.setOrder(new PanelOddEvenNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelOddEvenNotifier());
                             break;
                         case 3:
-                            colorGenerator.setOrder(new PanelRandOrderNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelRandOrderNotifier());
                             break;
                         default:
                             break;

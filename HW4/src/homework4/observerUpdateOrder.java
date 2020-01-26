@@ -3,18 +3,15 @@ package homework4;
 import java.util.*;
 
 /**
- * observerUpdateMethod is an class designed to be implemented by
- * observable class.
- * The interface enables the observable class to have multiple methods for
- * updating all of its observers
+ * observerUpdateMethod is an class designed to notify the observers about updates.
  */
 public class observerUpdateOrder extends Observable {
 
     //	 Abstraction Function:
-    //	 PERIOD defines the gap between the update of rwo observers.
-    //	 observers Vector contains all the observers that are subscribed to this.
-    //	 The vector initialized as an empty Vector (no observers at the beginning)
-    //	 order is an instance of PanelOrderNotifier class that determines the
+    //	 DELAY defines the gap between the update of two observers.
+    //	 The observers Vector contains all the observers that are subscribed.
+    //	 The vector initialized an empty Vector (no observers at the beginning)
+    //	 Order is an instance of PanelOrderNotifier class that determines the
     //	 update order of this observable class.
     //	 The default initialization is to InOrder class
 
@@ -28,7 +25,7 @@ public class observerUpdateOrder extends Observable {
 
 
     static final int DELAY = 40; // 40 milliseconds
-    private PanelOrderNotifier order;
+    private PanelOrderNotifier panelOrderNotifier;
     private Vector<Observer> observers;
 
     /**
@@ -41,7 +38,7 @@ public class observerUpdateOrder extends Observable {
      */
     public observerUpdateOrder() {
         checkRep();
-        order = new PanelAscOrderNotifier();
+        panelOrderNotifier = new PanelAscOrderNotifier();
         observers = new Vector<>();
         checkRep();
     }
@@ -76,8 +73,8 @@ public class observerUpdateOrder extends Observable {
      * @modifies: this
      * @effects: sets notification order policy to the one dictated by bO instance
      */
-    public void setOrder(PanelOrderNotifier newOrder) {
-        order = newOrder;
+    public void setPanelOrderNotifier(PanelOrderNotifier newOrder) {
+        panelOrderNotifier = newOrder;
         checkRep();
     }
 
@@ -97,7 +94,7 @@ public class observerUpdateOrder extends Observable {
             timer.scheduleAtFixedRate(new TimerTask() {
                 int counter = 0;
                 public void run() {
-                    (observers.get(order.getNextPanel())).update(copyOfThis,
+                    (observers.get(panelOrderNotifier.getNextPanel())).update(copyOfThis,
                             null);
                     counter++;
                     if (counter == observers.size()) {
@@ -115,10 +112,10 @@ public class observerUpdateOrder extends Observable {
      * @return true, if the method is valid. false, otherwise.
      */
     private boolean isStrategyValid() {
-        return (order.getClass() == PanelAscOrderNotifier.class ||
-                order.getClass() == PanelColsNotifier.class ||
-                order.getClass() == PanelOddEvenNotifier.class ||
-                order.getClass() == PanelRandOrderNotifier.class);
+        return (panelOrderNotifier.getClass() == PanelAscOrderNotifier.class ||
+                panelOrderNotifier.getClass() == PanelColsNotifier.class ||
+                panelOrderNotifier.getClass() == PanelOddEvenNotifier.class ||
+                panelOrderNotifier.getClass() == PanelRandOrderNotifier.class);
     }
 
     /**
@@ -127,7 +124,7 @@ public class observerUpdateOrder extends Observable {
      * @effects Checks the Representation Invariant is kept
      */
     private void checkRep() {
-        assert((order != null) && isStrategyValid());
+        assert((panelOrderNotifier != null) && isStrategyValid());
     }
 
 }
