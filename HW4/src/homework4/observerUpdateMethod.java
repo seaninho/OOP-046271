@@ -107,12 +107,24 @@ public class observerUpdateOrder extends Observable {
     }
 
     /**
+     * @effects Checks if the method is valid according to
+     *          Representation Invariant.
+     * @return true, if the method is valid. false, otherwise.
+     */
+    private boolean isStrategyValid() {
+        return (order.getClass() == PanelInOrderNotifier.class ||
+                order.getClass() == PanelInOrderNotifier.class ||
+                order.getClass() == PanelOddEvenNotifier.class ||
+                order.getClass() == PanelRandOrderNotifier.class);
+    }
+
+    /**
      * Check representation.
      *
      * @effects Checks the Representation Invariant is kept
      */
     private void checkRep() {
-        assert(order != null);
+        assert((order != null) && isStrategyValid());
     }
 
 
