@@ -27,7 +27,7 @@ public class Billboard extends JFrame {
     private static final int NUM_OF_HEIGHT_PANELS = 5;
     private static final int NUM_OF_WIDTH_PANELS = 5;
     private final int BOARDSIZE = NUM_OF_HEIGHT_PANELS*NUM_OF_WIDTH_PANELS;
-    private final int FREQUENCY = 2000;
+    private final int FREQUENCY = 2000; // 40 milliseconds delay
     private int time = 0;
 
     JPanel billboard = new JPanel();
