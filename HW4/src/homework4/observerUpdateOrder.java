@@ -97,7 +97,7 @@ public class observerUpdateOrder extends Observable {
             timer.scheduleAtFixedRate(new TimerTask() {
                 int counter = 0;
                 public void run() {
-                    (observers.get(order.nextIndex())).update(copyOfThis, null);
+                    (observers.get(order.getNextPanel())).update(copyOfThis, null);
                     counter++;
                     if (counter == observers.size()) {
                         this.cancel();

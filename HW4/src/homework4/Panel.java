@@ -22,7 +22,6 @@ public class Panel extends JPanel implements Observer {
     /**
      * Panel constructor.
      *
-     * @requires location != null && color != null
      * @modifies this
      * @effects Instantiates a new panel.
      *

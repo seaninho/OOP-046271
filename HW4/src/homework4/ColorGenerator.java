@@ -16,7 +16,6 @@ public class ColorGenerator extends observerUpdateOrder {
 
     private static final int MIN_COLOR = 0;
     private static final int MAX_COLOR = 255;
-    static final int DELAY = 40;
     private Color currentColor;
 
     // Eager Initialization of the instance

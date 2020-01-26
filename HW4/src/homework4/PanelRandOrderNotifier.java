@@ -3,6 +3,10 @@ package homework4;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * PanelRandOrderNotifier represents a panel order notifier which dictates the
+ * billboard's panels will change color in random order.
+ */
 public class PanelRandOrderNotifier implements PanelOrderNotifier {
     //  Abstraction function:
     //	A PanelRandOrderNotifier dictates the billboard's panels to changes
@@ -15,6 +19,13 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
     private int[] panelOrder;
     private int nextPanel;
 
+    /**
+     * PanelRandOrderNotifier constructor.
+     *
+     * @modifies this
+     * @effects Instantiates a new panels in random order notifier.
+     *
+     */
     public PanelRandOrderNotifier() {
         panelOrder = new int[BOARDSIZE];
         nextPanel = 1;
@@ -22,6 +33,14 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
         checkRep();
     }
 
+    /**
+     * Next panel to change its color.
+     *
+     * @modifies this
+     * @effects Determines the next panel to change its color, depending on a
+     * preset logic.
+     *
+     */
     @Override
     public int getNextPanel() {
         if (nextPanel > BOARDSIZE) {
@@ -33,6 +52,14 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
         return currentPanel;
     }
 
+    /**
+     * Randomizing panels update order.
+     *
+     * @modifies this
+     * @effects Randomize panelOrder array in order to set a random sequence of
+     *          panels in which each numbered panel appears exactly once.
+     *
+     */
     private void randOrder() {
         // initializing panel order array
         for(int i = 1; i <= BOARDSIZE; i++) {
@@ -49,6 +76,12 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
         checkRandOrder();
     }
 
+    /**
+     * Verify the process of randomizing the panels order was successful.
+     *
+     * @effects This method will fail in case each of the panels appears
+     *          more / less than once in randomized array.
+     */
     private void checkRandOrder() {
         int[] checkArray = new int[BOARDSIZE];
         // initialize temporary verifier array
