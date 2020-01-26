@@ -28,7 +28,7 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
      */
     public PanelRandOrderNotifier() {
         panelOrder = new int[BOARDSIZE];
-        nextPanel = 1;
+        nextPanel = 0;
         randOrder();
         checkRep();
     }

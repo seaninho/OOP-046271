@@ -24,7 +24,7 @@ public class PanelOddEvenNotifier implements PanelOrderNotifier {
      *
      */
     public PanelOddEvenNotifier() {
-        nextPanel = 1;
+        nextPanel = 0;
         checkRep();
     }
 
