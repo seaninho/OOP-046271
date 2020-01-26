@@ -44,10 +44,10 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
     @Override
     public int getNextPanel() {
         if (nextPanel > BOARDSIZE) {
-            nextPanel = 1;
+            nextPanel = 0;
             randOrder();
         }
-        int currentPanel = panelOrder[nextPanel-1];
+        int currentPanel = panelOrder[nextPanel];
         nextPanel++;
         return currentPanel;
     }
@@ -62,8 +62,8 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
      */
     private void randOrder() {
         // initializing panel order array
-        for(int i = 1; i <= BOARDSIZE; i++) {
-            panelOrder[i-1] = i;
+        for(int i = 0; i < BOARDSIZE; i++) {
+            panelOrder[i] = i;
         }
         // randomizing array
         Random random = new Random();
@@ -87,7 +87,7 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
         // initialize temporary verifier array
         Arrays.fill(checkArray, 0);
         for (int i = 0; i < BOARDSIZE; i++) {
-            checkArray[panelOrder[i]-1]++;
+            checkArray[panelOrder[i]]++;
         }
 
         for (int i = 0; i < BOARDSIZE; i++) {
@@ -102,7 +102,7 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
      * @effects This method will fail if next panel index is out of range.
      */
     private void checkRep() {
-        assert (1 <= nextPanel && nextPanel <= BOARDSIZE) :
+        assert (0 <= nextPanel && nextPanel < BOARDSIZE) :
                 "Panel index is out of range!";
     }
 }
