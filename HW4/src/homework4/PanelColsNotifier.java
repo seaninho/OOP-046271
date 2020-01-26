@@ -18,6 +18,7 @@ public class PanelColsNotifier implements PanelOrderNotifier {
     public PanelColsNotifier() {
         currentColumn = 1;
         nextPanel = 1;
+        checkRep();
     }
 
     @Override
