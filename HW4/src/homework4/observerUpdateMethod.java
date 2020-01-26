@@ -28,7 +28,6 @@ public class observerUpdateOrder extends Observable {
 
 
     static final int PERIOD = 40; // 40 milliseconds
-    static final int DELAY = 40;
     private observerUpdateOrder order;
     private Vector<Observer> observers;
 

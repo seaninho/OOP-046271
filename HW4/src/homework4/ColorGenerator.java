@@ -18,7 +18,7 @@ public class ColorGenerator {
     //  The color is valid ( 0 <= r,g,b <= 255)
 
     private static final int MAX_COLOR = 255;
-
+    static final int DELAY = 40;
     private List<Panel> observers = new ArrayList<>();
     private Color currentColor;
     private observerUpdateMethod updateMethod;
