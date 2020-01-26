@@ -26,7 +26,7 @@ public class Billboard extends JFrame {
     private static final int WINDOW_WIDTH = 600;
     private static final int NUM_OF_HEIGHT_PANELS = 5;
     private static final int NUM_OF_WIDTH_PANELS = 5;
-    private final int BOARDSIZE = NUM_OF_HEIGHT_PANELS*NUM_OF_WIDTH_PANELS
+    private final int BOARDSIZE = NUM_OF_HEIGHT_PANELS*NUM_OF_WIDTH_PANELS;
     private int time = 0;
 
     JPanel billboard = new JPanel();
@@ -48,6 +48,7 @@ public class Billboard extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         billboard.setLayout(new
                 GridLayout(NUM_OF_WIDTH_PANELS, NUM_OF_HEIGHT_PANELS));
+
         for(int i=0; i<BOARDSIZE; i++) {
             panels[i] = new Panel();
             colorGenerator.addObserver(panels[i]);
@@ -59,8 +60,8 @@ public class Billboard extends JFrame {
         Timer timer = new Timer(colorGenerator.DELAY, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (time % colorGenerator.DELAY == 0) {
-                    Random randomOrder = new Random();
-                    switch (randomOrder.nextInt(NUM_OF_UPDATE_ORDERS)) {
+                    Random newOrder = new Random();
+                    switch (newOrder.nextInt(NUM_OF_UPDATE_ORDERS)) {
                         case 0:
                             colorGenerator.setOrder(new PanelAscOrderNotifier());
                             break;
@@ -86,7 +87,7 @@ public class Billboard extends JFrame {
     }
 
     /**
-     * @effects: main method that instantiates Billboard
+     * @effects: main method that instantiates a Billboard
      */
     public static void main(String args[]) {
         new Billboard();
