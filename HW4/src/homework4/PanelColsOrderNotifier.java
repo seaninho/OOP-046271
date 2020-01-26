@@ -1,10 +1,10 @@
 package homework4;
 
 /**
- * PanelColsNotifier represents a panel order notifier which dictates the
+ * PanelColsOrderNotifier represents a panel order notifier which dictates the
  * billboard's panels will change color in all-panels-in-column order.
  */
-public class PanelColsNotifier implements PanelOrderNotifier {
+public class PanelColsOrderNotifier implements PanelOrderNotifier {
     //  Abstraction function:
     //	A PanelColsNotifier dictates the billboard's panels to changes
     //	their colors in a specific order.
@@ -20,13 +20,13 @@ public class PanelColsNotifier implements PanelOrderNotifier {
     private int nextPanel;
 
     /**
-     * PanelColsNotifier constructor.
+     * PanelColsOrderNotifier constructor.
      *
      * @modifies this
      * @effects Instantiates a new panels in column-changing order notifier.
      *
      */
-    public PanelColsNotifier() {
+    public PanelColsOrderNotifier() {
         currentColumn = 0;
         nextPanel = 0;
         checkRep();

@@ -67,10 +67,10 @@ public class Billboard extends JFrame {
                             colorGenerator.setPanelOrderNotifier(new PanelAscOrderNotifier());
                             break;
                         case 1:
-                            colorGenerator.setPanelOrderNotifier(new PanelColsNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelColsOrderNotifier());
                             break;
                         case 2:
-                            colorGenerator.setPanelOrderNotifier(new PanelOddEvenNotifier());
+                            colorGenerator.setPanelOrderNotifier(new PanelOddEvenOrderNotifier());
                             break;
                         case 3:
                             colorGenerator.setPanelOrderNotifier(new PanelRandOrderNotifier());

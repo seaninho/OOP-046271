@@ -1,10 +1,10 @@
 package homework4;
 
 /**
- * PanelOddEvenNotifier represents a panel order notifier which dictates the
+ * PanelOddEvenOrderNotifier represents a panel order notifier which dictates the
  * billboard's panels will change color in odd-first, even-second order.
  */
-public class PanelOddEvenNotifier implements PanelOrderNotifier {
+public class PanelOddEvenOrderNotifier implements PanelOrderNotifier {
     //  Abstraction function:
     //	A PanelOddEvenNotifier dictates the billboard's panels to changes
     //	their colors in a specific order, first odd numbered panels, then the
@@ -17,13 +17,13 @@ public class PanelOddEvenNotifier implements PanelOrderNotifier {
     private int nextPanel;
 
     /**
-     * PanelOddEvenNotifier constructor.
+     * PanelOddEvenOrderNotifier constructor.
      *
      * @modifies this
      * @effects Instantiates a new panels in odd-even order notifier.
      *
      */
-    public PanelOddEvenNotifier() {
+    public PanelOddEvenOrderNotifier() {
         nextPanel = 0;
         checkRep();
     }

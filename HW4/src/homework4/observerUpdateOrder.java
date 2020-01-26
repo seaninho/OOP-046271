@@ -115,8 +115,8 @@ public class observerUpdateOrder extends Observable {
      */
     private boolean isStrategyValid() {
         return (panelOrderNotifier.getClass() == PanelAscOrderNotifier.class ||
-                panelOrderNotifier.getClass() == PanelColsNotifier.class ||
-                panelOrderNotifier.getClass() == PanelOddEvenNotifier.class ||
+                panelOrderNotifier.getClass() == PanelColsOrderNotifier.class ||
+                panelOrderNotifier.getClass() == PanelOddEvenOrderNotifier.class ||
                 panelOrderNotifier.getClass() == PanelRandOrderNotifier.class);
     }
 
