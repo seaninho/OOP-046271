@@ -18,11 +18,19 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
     public PanelRandOrderNotifier() {
         panelOrder = new int[BOARDSIZE];
         nextPanel = 1;
+        randOrder();
+        checkRep();
     }
 
     @Override
     public int getNextPanel() {
-
+        if (nextPanel > BOARDSIZE) {
+            nextPanel = 1;
+            randOrder();
+        }
+        int currentPanel = panelOrder[nextPanel-1];
+        nextPanel++;
+        return currentPanel;
     }
 
     private void randOrder() {
@@ -43,14 +51,15 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
 
     private void checkRandOrder() {
         int[] checkArray = new int[BOARDSIZE];
+        // initialize temporary verifier array
         Arrays.fill(checkArray, 0);
         for (int i = 0; i < BOARDSIZE; i++) {
-            checkArray[panelOrder[i]]++;
+            checkArray[panelOrder[i]-1]++;
         }
 
         for (int i = 0; i < BOARDSIZE; i++) {
-            assert checkArray[i] == 1 :
-                    "There are repetitions in rand order created";
+            assert (checkArray[i] == 1) :
+                    "Randomizing order of numbered panels failed";
         }
     }
 
