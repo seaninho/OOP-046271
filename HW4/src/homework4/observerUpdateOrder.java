@@ -3,7 +3,7 @@ package homework4;
 import java.util.*;
 
 /**
- * observerUpdateMethod is an class designed to notify the observers about updates.
+ * observerUpdateOrder class designed to notify the observers about updates.
  */
 public class observerUpdateOrder extends Observable {
 
