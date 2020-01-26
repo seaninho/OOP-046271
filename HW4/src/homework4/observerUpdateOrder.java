@@ -27,7 +27,7 @@ public class observerUpdateOrder extends Observable {
     //      4) Update randomly - PanelRandOrderNotifier
 
 
-    static final int PERIOD = 40; // 40 milliseconds
+    static final int DELAY = 40; // 40 milliseconds
     private PanelOrderNotifier order;
     private Vector<Observer> observers;
 
@@ -104,7 +104,7 @@ public class observerUpdateOrder extends Observable {
                         this.cancel();
                     }
                 }
-            }, PERIOD, PERIOD);
+            }, DELAY, DELAY);
             clearChanged();
         }
     }
