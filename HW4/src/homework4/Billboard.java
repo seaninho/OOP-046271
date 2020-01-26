@@ -21,7 +21,7 @@ public class Billboard extends JFrame {
     //	 there are 25 panels.
 
 
-    private static final int NUM_OF_UPDATE_ORDERS = 4;
+    private static final int BOUND_OF_UPDATE_ORDERS = 4;
     private static final int WINDOW_HEIGHT = 600;
     private static final int WINDOW_WIDTH = 600;
     private static final int NUM_OF_HEIGHT_PANELS = 5;
@@ -62,25 +62,20 @@ public class Billboard extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 if (time % FREQUENCY == 0) {
                     Random newOrder = new Random();
-                    switch (newOrder.nextInt(1)) {
-//                        case 0:
-//                            colorGenerator.setOrder(new PanelAscOrderNotifier());
-//                            System.out.println("Ascending order - PanelAscOrderNotifier");
-//                            break;
-//                        case 1:
-//                            colorGenerator.setOrder(new PanelColsNotifier());
-//                            System.out.println("Change by columns - PanelColsNotifier");
-//                            break;
-//                        case 2:
-//                            colorGenerator.setOrder(new PanelOddEvenNotifier());
-//                            System.out.println("Update in two steps - PanelOddEvenNotifier");
-//                            break;
+                    switch (newOrder.nextInt(BOUND_OF_UPDATE_ORDERS)) {
                         case 0:
+                            colorGenerator.setOrder(new PanelAscOrderNotifier());
+                            break;
+                        case 1:
+                            colorGenerator.setOrder(new PanelColsNotifier());
+                            break;
+                        case 2:
+                            colorGenerator.setOrder(new PanelOddEvenNotifier());
+                            break;
+                        case 3:
                             colorGenerator.setOrder(new PanelRandOrderNotifier());
-                            System.out.println("Update randomly - PanelRandOrderNotifier");
                             break;
                         default:
-                            System.out.println("--------default");
                             break;
                     }
                     colorGenerator.setColor();
