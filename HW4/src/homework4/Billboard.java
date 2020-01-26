@@ -16,4 +16,6 @@ public class Billboard {
     private static final int WINDOW_SIZE = 600;
     private static final int NUM_OF_PANELS = 5;
     private static final int BILL_HEIGHT = 5;
+
+
 }
