@@ -19,12 +19,12 @@ public class observerUpdateOrder extends Observable {
     //	 The default initialization is to InOrder class
 
     //	 Representation Invariant:
-    //	 order != null
-    //   order (the color update order) is one of four methods:
-    //	 1) Ascending order -
-    //   2) Change by columns -
-    //   3) Update in two steps -
-    //   4) Update randomly -
+    //	 1. order != null
+    //   2. order (the color update order) is one of four methods:
+    //	    1) Ascending order - PanelAscOrderNotifier
+    //      2) Change by columns - PanelColsNotifier
+    //      3) Update in two steps - PanelOddEvenNotifier
+    //      4) Update randomly - PanelRandOrderNotifier
 
 
     static final int PERIOD = 40; // 40 milliseconds
@@ -41,7 +41,7 @@ public class observerUpdateOrder extends Observable {
      */
     public observerUpdateOrder() {
         checkRep();
-        order = new PanelInOrderNotifier();
+        order = new PanelAscOrderNotifier();
         observers = new Vector<>();
         checkRep();
     }
@@ -76,7 +76,7 @@ public class observerUpdateOrder extends Observable {
      * @modifies: this
      * @effects: sets notification order policy to the one dictated by bO instance
      */
-    public void setOrder(observerUpdateOrder newOrder) {
+    public void setOrder(PanelOrderNotifier newOrder) {
         order = newOrder;
         checkRep();
     }
@@ -114,7 +114,7 @@ public class observerUpdateOrder extends Observable {
      * @return true, if the method is valid. false, otherwise.
      */
     private boolean isStrategyValid() {
-        return (order.getClass() == PanelInOrderNotifier.class ||
+        return (order.getClass() == PanelAscOrderNotifier.class ||
                 order.getClass() == PanelColsNotifier.class ||
                 order.getClass() == PanelOddEvenNotifier.class ||
                 order.getClass() == PanelRandOrderNotifier.class);
@@ -128,7 +128,6 @@ public class observerUpdateOrder extends Observable {
     private void checkRep() {
         assert((order != null) && isStrategyValid());
     }
-
 
 }
 
