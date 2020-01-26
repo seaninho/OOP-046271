@@ -12,7 +12,7 @@ public class PanelColsNotifier implements PanelOrderNotifier {
     //  etc...
     //
     //	Representation Invariant:
-    //  1 <= nextPanel <= 25
+    //  0 <= nextPanel < 25
 
     private final int BOARDSIZE = 25;
     private final int COLUMNSIZE = 5;
@@ -58,9 +58,9 @@ public class PanelColsNotifier implements PanelOrderNotifier {
      * @effects This method will fail if next panel index is out of range.
      */
     private void checkRep() {
-        assert (nextPanel >= 1 && nextPanel <= BOARDSIZE) :
+        assert (nextPanel >= 0 && nextPanel < BOARDSIZE) :
                 "Panel index is out of range!";
-        assert (currentColumn >= 1 && currentColumn <= COLUMNSIZE) :
+        assert (currentColumn >= 0 && currentColumn < COLUMNSIZE) :
                 "Column index is out of range!";
     }
 

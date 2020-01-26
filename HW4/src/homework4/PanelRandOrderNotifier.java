@@ -13,7 +13,7 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
     //	their colors in random order.
     //
     //	Representation Invariant:
-    //  1 <= nextPanel <= 25
+    //  0 <= nextPanel < 25
 
     private final int BOARDSIZE = 25;
     private int[] panelOrder;
