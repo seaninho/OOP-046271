@@ -44,7 +44,7 @@ public class PanelColsNotifier implements PanelOrderNotifier {
     public int getNextPanel() {
         int currentPanel = nextPanel;
         if (nextPanel == (BOARDSIZE - COLUMNSIZE + currentColumn)) {
-            nextPanel = (currentColumn++) % COLUMNSIZE;
+            nextPanel = (++currentColumn) % COLUMNSIZE;
         } else {
             nextPanel += COLUMNSIZE;
         }
