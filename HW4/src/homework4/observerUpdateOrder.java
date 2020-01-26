@@ -52,6 +52,7 @@ public class observerUpdateOrder extends Observable {
      * @param   observer   an observer to be added.
      * @throws NullPointerException   if the parameter o is null.
      */
+    @Override
     public synchronized void addObserver(Observer observer) {
         if (observer == null)
             throw new NullPointerException();
@@ -65,17 +66,9 @@ public class observerUpdateOrder extends Observable {
      * Passing {@code null} to this method will have no effect.
      * @param   observer   the observer to be deleted.
      */
+    @Override
     public synchronized void deleteObserver(Observer observer) {
         observers.removeElement(observer);
-    }
-
-    /**
-     * @modifies: this
-     * @effects: sets notification order policy to the one dictated by bO instance
-     */
-    public void setPanelOrderNotifier(PanelOrderNotifier newOrder) {
-        panelOrderNotifier = newOrder;
-        checkRep();
     }
 
     /**
@@ -104,6 +97,15 @@ public class observerUpdateOrder extends Observable {
             }, DELAY, DELAY);
             clearChanged();
         }
+    }
+
+    /**
+     * @modifies: this
+     * @effects: sets notification order policy to the one dictated by bO instance
+     */
+    public void setPanelOrderNotifier(PanelOrderNotifier newOrder) {
+        panelOrderNotifier = newOrder;
+        checkRep();
     }
 
     /**
