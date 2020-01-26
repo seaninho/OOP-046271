@@ -23,7 +23,7 @@ public class PanelAscOrderNotifier implements PanelOrderNotifier {
      *
      */
     public PanelAscOrderNotifier() {
-        nextPanel = 1;
+        nextPanel = 0;
         checkRep();
     }
 
