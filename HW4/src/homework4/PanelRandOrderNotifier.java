@@ -43,6 +43,7 @@ public class PanelRandOrderNotifier implements PanelOrderNotifier {
 
     private void checkRandOrder() {
         int[] checkArray = new int[BOARDSIZE];
+        // initialize temporary verifier array
         Arrays.fill(checkArray, 0);
         for (int i = 0; i < BOARDSIZE; i++) {
             checkArray[panelOrder[i]]++;
