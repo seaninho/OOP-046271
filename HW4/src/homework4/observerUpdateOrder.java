@@ -13,7 +13,7 @@ public class observerUpdateOrder extends Observable {
     //	 The vector initialized an empty Vector (no observers at the beginning)
     //	 Order is an instance of PanelOrderNotifier class that determines the
     //	 update order of this observable class.
-    //	 The default initialization is to InOrder class
+    //	 The default initialization is to PanelAscOrderNotifier class
 
     //	 Representation Invariant:
     //	 1. order != null
