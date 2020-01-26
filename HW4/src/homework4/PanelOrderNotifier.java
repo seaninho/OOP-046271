@@ -18,5 +18,5 @@ public interface PanelOrderNotifier {
      * preset logic.
      *
      */
-    int nextPanel();
+    int getNextPanel();
 }

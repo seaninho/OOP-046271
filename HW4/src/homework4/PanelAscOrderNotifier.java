@@ -1,10 +1,9 @@
 package homework4;
 
-public class PanelOddEvenNotifier implements PanelOrderNotifier {
+public class PanelAscOrderNotifier implements PanelOrderNotifier {
     //  Abstraction function:
-    //	A PanelOddEvenNotifier dictates the billboard's panels to changes
-    //	their colors in a specific order, first odd numbered panels, then the
-    //  even numbered ones.
+    //	A PanelAscOrderNotifier dictates the billboard's panels to changes their
+    //	colors in ascending order.
     //
     //	Representation Invariant:
     //  1 <= nextPanel <= 25
@@ -12,14 +11,14 @@ public class PanelOddEvenNotifier implements PanelOrderNotifier {
     private final int BOARDSIZE = 25;
     private int nextPanel;
 
-    public PanelOddEvenNotifier() {
+    public PanelAscOrderNotifier() {
         nextPanel = 1;
     }
 
     @Override
     public int getNextPanel() {
         int currentPanel = nextPanel;
-        nextPanel = (nextPanel + 2) % BOARDSIZE;
+        nextPanel = (nextPanel++) % BOARDSIZE;
         checkRep();
         return currentPanel;
     }
@@ -33,4 +32,5 @@ public class PanelOddEvenNotifier implements PanelOrderNotifier {
         assert (nextPanel >= 1 && nextPanel <= BOARDSIZE) :
                 "Panel index is out of range!";
     }
+
 }
