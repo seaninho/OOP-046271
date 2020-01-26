@@ -62,20 +62,20 @@ public class Billboard extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 if (time % FREQUENCY == 0) {
                     Random newOrder = new Random();
-                    switch (newOrder.nextInt(NUM_OF_UPDATE_ORDERS)) {
+                    switch (newOrder.nextInt(1)) {
+//                        case 0:
+//                            colorGenerator.setOrder(new PanelAscOrderNotifier());
+//                            System.out.println("Ascending order - PanelAscOrderNotifier");
+//                            break;
+//                        case 1:
+//                            colorGenerator.setOrder(new PanelColsNotifier());
+//                            System.out.println("Change by columns - PanelColsNotifier");
+//                            break;
+//                        case 2:
+//                            colorGenerator.setOrder(new PanelOddEvenNotifier());
+//                            System.out.println("Update in two steps - PanelOddEvenNotifier");
+//                            break;
                         case 0:
-                            colorGenerator.setOrder(new PanelAscOrderNotifier());
-                            System.out.println("Ascending order - PanelAscOrderNotifier");
-                            break;
-                        case 1:
-                            colorGenerator.setOrder(new PanelColsNotifier());
-                            System.out.println("Change by columns - PanelColsNotifier");
-                            break;
-                        case 2:
-                            colorGenerator.setOrder(new PanelOddEvenNotifier());
-                            System.out.println("Update in two steps - PanelOddEvenNotifier");
-                            break;
-                        case 3:
                             colorGenerator.setOrder(new PanelRandOrderNotifier());
                             System.out.println("Update randomly - PanelRandOrderNotifier");
                             break;

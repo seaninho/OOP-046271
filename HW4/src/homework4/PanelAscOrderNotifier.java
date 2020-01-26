@@ -37,8 +37,8 @@ public class PanelAscOrderNotifier implements PanelOrderNotifier {
      */
     @Override
     public int getNextPanel() {
-        int currentPanel = nextPanel;
-        nextPanel = (nextPanel++) % BOARDSIZE;
+        int currentPanel = nextPanel++;
+        nextPanel = nextPanel % BOARDSIZE;
         checkRep();
         return currentPanel;
     }
