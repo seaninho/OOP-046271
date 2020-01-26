@@ -1,5 +1,9 @@
 package homework4;
 
+/**
+ * PanelOddEvenNotifier represents a panel order notifier which dictates the
+ * billboard's panels will change color in odd-first, even-second order.
+ */
 public class PanelOddEvenNotifier implements PanelOrderNotifier {
     //  Abstraction function:
     //	A PanelOddEvenNotifier dictates the billboard's panels to changes
@@ -12,11 +16,26 @@ public class PanelOddEvenNotifier implements PanelOrderNotifier {
     private final int BOARDSIZE = 25;
     private int nextPanel;
 
+    /**
+     * PanelOddEvenNotifier constructor.
+     *
+     * @modifies this
+     * @effects Instantiates a new panels in odd-even order notifier.
+     *
+     */
     public PanelOddEvenNotifier() {
         nextPanel = 1;
         checkRep();
     }
 
+    /**
+     * Next panel to change its color.
+     *
+     * @modifies this
+     * @effects Determines the next panel to change its color, depending on a
+     * preset logic.
+     *
+     */
     @Override
     public int getNextPanel() {
         int currentPanel = nextPanel;

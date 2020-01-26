@@ -1,5 +1,9 @@
 package homework4;
 
+/**
+ * PanelAscOrderNotifier represents a panel order notifier which dictates the
+ * billboard's panels will change color in ascending order.
+ */
 public class PanelAscOrderNotifier implements PanelOrderNotifier {
     //  Abstraction function:
     //	A PanelAscOrderNotifier dictates the billboard's panels to changes their
@@ -11,11 +15,26 @@ public class PanelAscOrderNotifier implements PanelOrderNotifier {
     private final int BOARDSIZE = 25;
     private int nextPanel;
 
+    /**
+     * PanelAscOrderNotifier constructor.
+     *
+     * @modifies this
+     * @effects Instantiates a new panels in ascending order notifier.
+     *
+     */
     public PanelAscOrderNotifier() {
         nextPanel = 1;
         checkRep();
     }
 
+    /**
+     * Next panel to change its color.
+     *
+     * @modifies this
+     * @effects Determines the next panel to change its color, depending on a
+     * preset logic.
+     *
+     */
     @Override
     public int getNextPanel() {
         int currentPanel = nextPanel;
