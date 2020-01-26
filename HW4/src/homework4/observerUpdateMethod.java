@@ -21,10 +21,10 @@ public class observerUpdateOrder extends Observable {
     //	 Representation Invariant:
     //	 order != null
     //   order (the color update order) is one of four methods:
-    //	 1) Ascending order
-    //   2) Change by columns
-    //   3) Update in two steps
-    //   4) Update randomly
+    //	 1) Ascending order -
+    //   2) Change by columns -
+    //   3) Update in two steps -
+    //   4) Update randomly -
 
 
     static final int PERIOD = 40; // 40 milliseconds
