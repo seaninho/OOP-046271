@@ -27,6 +27,7 @@ public class Billboard extends JFrame {
     private static final int NUM_OF_HEIGHT_PANELS = 5;
     private static final int NUM_OF_WIDTH_PANELS = 5;
     private final int BOARDSIZE = NUM_OF_HEIGHT_PANELS*NUM_OF_WIDTH_PANELS;
+    private final int FREQUENCY = 2000;
     private int time = 0;
 
     JPanel billboard = new JPanel();
@@ -59,20 +60,24 @@ public class Billboard extends JFrame {
 
         Timer timer = new Timer(colorGenerator.DELAY, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                if (time % colorGenerator.DELAY == 0) {
+                if (time % FREQUENCY == 0) {
                     Random newOrder = new Random();
                     switch (newOrder.nextInt(NUM_OF_UPDATE_ORDERS)) {
                         case 0:
                             colorGenerator.setOrder(new PanelAscOrderNotifier());
+                            System.out.println("Ascending order - PanelAscOrderNotifier");
                             break;
                         case 1:
                             colorGenerator.setOrder(new PanelColsNotifier());
+                            System.out.println("Change by columns - PanelColsNotifier");
                             break;
                         case 2:
                             colorGenerator.setOrder(new PanelOddEvenNotifier());
+                            System.out.println("Update in two steps - PanelOddEvenNotifier");
                             break;
                         case 3:
                             colorGenerator.setOrder(new PanelRandOrderNotifier());
+                            System.out.println("Update randomly - PanelRandOrderNotifier");
                             break;
                         default:
                             break;
