@@ -80,6 +80,7 @@ public class Billboard extends JFrame {
                             System.out.println("Update randomly - PanelRandOrderNotifier");
                             break;
                         default:
+                            System.out.println("--------default");
                             break;
                     }
                     colorGenerator.setColor();
